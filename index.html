@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeTutor - Student App</title>
+    <title>CodeTutor - Student Learning App</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -18,28 +18,28 @@
             
             <div class="card main-card">
                 <div class="input-section">
-                    <input type="text" id="studentName" placeholder="Student Name" />
-                    <input type="text" id="schoolName" placeholder="School Name" />
+                    <input type="text" id="studentName" placeholder="Enter Your Name" autocomplete="off" />
+                    <input type="text" id="schoolName" placeholder="Enter School Name" autocomplete="off" />
                 </div>
                 
                 <div class="mode-toggle">
                     <label class="toggle-option">
                         <input type="radio" name="quizMode" value="practice" checked> 
-                        <span>🛡️ Practice</span>
+                        <span>🛡️ Practice Mode</span>
                     </label>
                     <label class="toggle-option">
                         <input type="radio" name="quizMode" value="test"> 
-                        <span>⚔️ Test</span>
+                        <span>⚔️ Test Mode</span>
                     </label>
                 </div>
 
-                <h3 class="section-label">Select Your Lesson:</h3>
+                <h3 class="section-label">Select a Chapter:</h3>
                 <div id="quizList" class="chapter-list">
                     </div>
 
                 <div class="footer-actions">
                     <button id="startQuiz" class="primary-btn" disabled>Start Learning ▶</button>
-                    <button id="demoModeBtn" class="icon-btn">🛠️</button>
+                    <button id="demoModeBtn" class="icon-btn">🛠️ Demo</button>
                 </div>
             </div>
             <div id="errorMessage" class="error-msg"></div>
@@ -84,7 +84,7 @@
                     <span id="finalScore">0</span> / <span id="totalPossible">0</span>
                 </div>
                 <div id="percentage" class="percent">0%</div>
-                <div class="time-stat">Time: <span id="totalTime">0m</span></div>
+                <div class="time-stat">Time Taken: <span id="totalTime">0m</span></div>
                 
                 <div id="resultsBreakdown" class="result-scroll"></div>
 
@@ -99,7 +99,9 @@
             <h2>🏆 Leaderboard</h2>
             <div class="table-container">
                 <table>
-                    <thead><tr><th>Date</th><th>Name</th><th>Score</th></tr></thead>
+                    <thead>
+                        <tr><th>Date</th><th>Student</th><th>Score</th></tr>
+                    </thead>
                     <tbody id="scoreboardBody"></tbody>
                 </table>
             </div>
@@ -109,9 +111,9 @@
         <div id="quitModal" class="modal-overlay">
             <div class="modal-box">
                 <h3>Quit Lesson?</h3>
-                <p>Progress will be lost.</p>
+                <p>Your current progress will be lost.</p>
                 <div class="modal-buttons">
-                    <button id="confirmQuit" class="danger-btn">Quit</button>
+                    <button id="confirmQuit" class="danger-btn">Yes, Quit</button>
                     <button id="cancelQuit" class="cancel-btn">Stay</button>
                 </div>
             </div>
