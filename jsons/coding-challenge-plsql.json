@@ -1,0 +1,290 @@
+{
+  "metadata": {
+    "chapter_title": "PL/SQL Coding Challenge",
+    "chapter_title_hindi": "PL/SQL कोडिंग चुनौती",
+    "total_questions": 40
+  },
+  "questions": [
+    {
+      "question_id": "pl_1",
+      "question": {
+        "en": "What are the three main sections of a PL/SQL block?",
+        "hi": "PL/SQL ब्लॉक के तीन मुख्य भाग क्या हैं?"
+      },
+      "options": {
+        "a": {"en": "START, RUN, STOP", "hi": "START, RUN, STOP"},
+        "b": {"en": "DECLARE, BEGIN, END", "hi": "DECLARE, BEGIN, END"},
+        "c": {"en": "HEAD, BODY, FOOTER", "hi": "HEAD, BODY, FOOTER"},
+        "d": {"en": "INPUT, PROCESS, OUTPUT", "hi": "INPUT, PROCESS, OUTPUT"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "You Declare variables, Begin logic, End block.", "hi": "आप वेरिएबल्स Declare करते हैं, तर्क Begin करते हैं, ब्लॉक End करते हैं।"},
+      "explanation": {"en": "Every PL/SQL block has a Declaration section (optional), a standard Execution section (BEGIN), and an END.", "hi": "प्रत्येक PL/SQL ब्लॉक में एक घोषणा अनुभाग (वैकल्पिक), एक मानक निष्पादन अनुभाग (BEGIN), और एक END होता है।"},
+      "key_takeaway": {"en": "Standard structure.", "hi": "मानक संरचना।"}
+    },
+    {
+      "question_id": "pl_2",
+      "question": {
+        "en": "Which operator is used for assignment in PL/SQL?",
+        "hi": "PL/SQL में असाइनमेंट (assignment) के लिए किस ऑपरेटर का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "=", "hi": "="},
+        "b": {"en": "==", "hi": "=="},
+        "c": {"en": ":=", "hi": ":="},
+        "d": {"en": "<-", "hi": "<-"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Colon Equals.", "hi": "कोलन इक्वल्स (Colon Equals)।"},
+      "explanation": {"en": "In PL/SQL, <code>:=</code> assigns a value. <code>=</code> is only used for comparison.", "hi": "PL/SQL में, <code>:=</code> एक मान असाइन करता है। <code>=</code> का उपयोग केवल तुलना के लिए किया जाता है।"},
+      "key_takeaway": {"en": "Common mistake coming from other languages.", "hi": "अन्य भाषाओं से आने वाली सामान्य गलती।"}
+    },
+    {
+      "question_id": "pl_3",
+      "question": {
+        "en": "How do you print text to the screen in PL/SQL?",
+        "hi": "आप PL/SQL में स्क्रीन पर टेक्स्ट कैसे प्रिंट करते हैं?"
+      },
+      "options": {
+        "a": {"en": "echo", "hi": "echo"},
+        "b": {"en": "print", "hi": "print"},
+        "c": {"en": "DBMS_OUTPUT.PUT_LINE", "hi": "DBMS_OUTPUT.PUT_LINE"},
+        "d": {"en": "Console.Log", "hi": "Console.Log"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It uses a built-in package.", "hi": "यह एक अंतर्निहित पैकेज का उपयोग करता है।"},
+      "explanation": {"en": "DBMS_OUTPUT.PUT_LINE is the standard procedure to display output.", "hi": "DBMS_OUTPUT.PUT_LINE आउटपुट प्रदर्शित करने के लिए मानक प्रक्रिया है।"},
+      "key_takeaway": {"en": "Long command to remember.", "hi": "याद रखने के लिए लंबा कमांड।"}
+    },
+    {
+      "question_id": "pl_4",
+      "question": {
+        "en": "What is the correct syntax for a variable declaration?",
+        "hi": "वेरिएबल घोषणा (variable declaration) के लिए सही सिंटैक्स क्या है?"
+      },
+      "options": {
+        "a": {"en": "var x = 10;", "hi": "var x = 10;"},
+        "b": {"en": "x NUMBER := 10;", "hi": "x NUMBER := 10;"},
+        "c": {"en": "int x = 10;", "hi": "int x = 10;"},
+        "d": {"en": "$x = 10;", "hi": "$x = 10;"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Name Type Assignment Value.", "hi": "नाम प्रकार असाइनमेंट मान।"},
+      "explanation": {"en": "Format: <code>Variable_Name Data_Type := Value;</code>", "hi": "प्रारूप: <code>Variable_Name Data_Type := Value;</code>"},
+      "key_takeaway": {"en": "Strict typing.", "hi": "सख्त टाइपिंग।"}
+    },
+    {
+      "question_id": "pl_5",
+      "question": {
+        "en": "Which operator performs string concatenation?",
+        "hi": "कौन सा ऑपरेटर स्ट्रिंग कॉनकेटनेशन (string concatenation) करता है?"
+      },
+      "options": {
+        "a": {"en": "+", "hi": "+"},
+        "b": {"en": ".", "hi": "."},
+        "c": {"en": "||", "hi": "||"},
+        "d": {"en": "&", "hi": "&"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Double pipes.", "hi": "डबल पाइप्स।"},
+      "explanation": {"en": "PL/SQL uses <code>||</code> to join strings, unlike PHP (.) or JS (+).", "hi": "PL/SQL स्ट्रिंग्स को जोड़ने के लिए <code>||</code> का उपयोग करता है, PHP (.) या JS (+) के विपरीत।"},
+      "key_takeaway": {"en": "'A' || 'B' = 'AB'.", "hi": "'A' || 'B' = 'AB'."}
+    },
+    {
+      "question_id": "pl_6",
+      "question": {
+        "en": "Identify the missing keyword:<br><pre><code>IF x > 10 ___ \n  DBMS_OUTPUT.PUT_LINE('Big');\nEND IF;</code></pre>",
+        "hi": "गायब कीवर्ड पहचानें:<br><pre><code>IF x > 10 ___ \n  DBMS_OUTPUT.PUT_LINE('Big');\nEND IF;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "DO", "hi": "DO"},
+        "b": {"en": "THEN", "hi": "THEN"},
+        "c": {"en": "START", "hi": "START"},
+        "d": {"en": "EXECUTE", "hi": "EXECUTE"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "If... Then...", "hi": "If... Then..."},
+      "explanation": {"en": "PL/SQL IF statements require the <code>THEN</code> keyword before the logic.", "hi": "PL/SQL IF कथनों को तर्क से पहले <code>THEN</code> कीवर्ड की आवश्यकता होती है।"},
+      "key_takeaway": {"en": "Mandatory syntax.", "hi": "अनिवार्य सिंटैक्स।"}
+    },
+    {
+      "question_id": "pl_7",
+      "question": {
+        "en": "How do you write 'Else If' in PL/SQL?",
+        "hi": "आप PL/SQL में 'Else If' कैसे लिखते हैं?"
+      },
+      "options": {
+        "a": {"en": "ELSE IF", "hi": "ELSE IF"},
+        "b": {"en": "ELIF", "hi": "ELIF"},
+        "c": {"en": "ELSIF", "hi": "ELSIF"},
+        "d": {"en": "ELSEIF", "hi": "ELSEIF"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It is missing one letter 'E'.", "hi": "इसमें एक अक्षर 'E' गायब है।"},
+      "explanation": {"en": "The correct keyword is <code>ELSIF</code> (no second 'E').", "hi": "सही कीवर्ड <code>ELSIF</code> (दूसरा 'E' नहीं) है।"},
+      "key_takeaway": {"en": "Common syntax error.", "hi": "सामान्य सिंटैक्स त्रुटि।"}
+    },
+    {
+      "question_id": "pl_8",
+      "question": {
+        "en": "What ends a Loop in PL/SQL?",
+        "hi": "PL/SQL में लूप को क्या समाप्त करता है?"
+      },
+      "options": {
+        "a": {"en": "END;", "hi": "END;"},
+        "b": {"en": "STOP LOOP;", "hi": "STOP LOOP;"},
+        "c": {"en": "END LOOP;", "hi": "END LOOP;"},
+        "d": {"en": "DONE;", "hi": "DONE;"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "You must specify what you are ending.", "hi": "आपको निर्दिष्ट करना होगा कि आप क्या समाप्त कर रहे हैं।"},
+      "explanation": {"en": "Loops are closed with <code>END LOOP;</code>.", "hi": "लूप्स <code>END LOOP;</code> के साथ बंद किए जाते हैं।"},
+      "key_takeaway": {"en": "Similar to END IF;", "hi": "END IF; के समान"}
+    },
+    {
+      "question_id": "pl_9",
+      "question": {
+        "en": "Predict output of this loop:<br><pre><code>FOR n IN 1..3 LOOP\n DBMS_OUTPUT.PUT_LINE(n);\nEND LOOP;</code></pre>",
+        "hi": "इस लूप के आउटपुट का अनुमान लगाएं:<br><pre><code>FOR n IN 1..3 LOOP\n DBMS_OUTPUT.PUT_LINE(n);\nEND LOOP;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "1 2 3", "hi": "1 2 3"},
+        "b": {"en": "1 2", "hi": "1 2"},
+        "c": {"en": "1..3", "hi": "1..3"},
+        "d": {"en": "Error", "hi": "Error"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Inclusive range.", "hi": "समावेशी सीमा (Inclusive range)।"},
+      "explanation": {"en": "The syntax <code>1..3</code> creates a range including both start and end numbers.", "hi": "सिंटैक्स <code>1..3</code> शुरुआत और अंत दोनों संख्याओं सहित एक सीमा बनाता है।"},
+      "key_takeaway": {"en": "Two dots for range.", "hi": "सीमा के लिए दो बिंदु।"}
+    },
+    {
+      "question_id": "pl_10",
+      "question": {
+        "en": "How to make a FOR loop count backwards?",
+        "hi": "FOR लूप को पीछे की ओर (backwards) कैसे गिनें?"
+      },
+      "options": {
+        "a": {"en": "FOR n IN 10..1", "hi": "FOR n IN 10..1"},
+        "b": {"en": "FOR n IN REVERSE 1..10", "hi": "FOR n IN REVERSE 1..10"},
+        "c": {"en": "FOR n IN BACK 1..10", "hi": "FOR n IN BACK 1..10"},
+        "d": {"en": "FOR n DOWNTO 1", "hi": "FOR n DOWNTO 1"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Use the REVERSE keyword.", "hi": "REVERSE कीवर्ड का उपयोग करें।"},
+      "explanation": {"en": "You write the range normally (1..10) but add <code>REVERSE</code> to count down.", "hi": "आप सीमा सामान्य रूप से (1..10) लिखते हैं लेकिन उल्टी गिनती के लिए <code>REVERSE</code> जोड़ते हैं।"},
+      "key_takeaway": {"en": "Range is always Low..High.", "hi": "सीमा हमेशा निम्न..उच्च (Low..High) होती है।"}
+    },
+    {
+      "question_id": "pl_11",
+      "question": {
+        "en": "What function is used to calculate Power?",
+        "hi": "Power (घात) की गणना के लिए किस फ़ंक्शन का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "**", "hi": "**"},
+        "b": {"en": "POW()", "hi": "POW()"},
+        "c": {"en": "POWER()", "hi": "POWER()"},
+        "d": {"en": "EXP()", "hi": "EXP()"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Full word POWER.", "hi": "पूरा शब्द POWER।"},
+      "explanation": {"en": "PL/SQL uses the <code>POWER(base, exponent)</code> function.", "hi": "PL/SQL <code>POWER(base, exponent)</code> फ़ंक्शन का उपयोग करता है।"},
+      "key_takeaway": {"en": "No ** operator in PL/SQL.", "hi": "PL/SQL में कोई ** ऑपरेटर नहीं है।"}
+    },
+    {
+      "question_id": "pl_12",
+      "question": {
+        "en": "How do you calculate the Remainder?",
+        "hi": "आप शेषफल (Remainder) की गणना कैसे करते हैं?"
+      },
+      "options": {
+        "a": {"en": "%", "hi": "%"},
+        "b": {"en": "REM()", "hi": "REM()"},
+        "c": {"en": "MOD()", "hi": "MOD()"},
+        "d": {"en": "DIV()", "hi": "DIV()"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Short for Modulo.", "hi": "Modulo का संक्षिप्त रूप।"},
+      "explanation": {"en": "Use the <code>MOD(a, b)</code> function. % is not an operator in PL/SQL.", "hi": "<code>MOD(a, b)</code> फ़ंक्शन का उपयोग करें। % PL/SQL में एक ऑपरेटर नहीं है।"},
+      "key_takeaway": {"en": "Functions instead of symbols.", "hi": "प्रतीकों के बजाय कार्य (Functions)।"}
+    },
+    {
+      "question_id": "pl_13",
+      "question": {
+        "en": "What terminates the DECLARE section?",
+        "hi": "DECLARE अनुभाग को क्या समाप्त करता है?"
+      },
+      "options": {
+        "a": {"en": "END DECLARE;", "hi": "END DECLARE;"},
+        "b": {"en": "BEGIN", "hi": "BEGIN"},
+        "c": {"en": "STOP;", "hi": "STOP;"},
+        "d": {"en": ";", "hi": ";"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "The next section starts.", "hi": "अगला भाग शुरू होता है।"},
+      "explanation": {"en": "The <code>BEGIN</code> keyword marks the end of declarations and start of logic.", "hi": "<code>BEGIN</code> कीवर्ड घोषणाओं के अंत और तर्क की शुरुआत को चिह्नित करता है।"},
+      "key_takeaway": {"en": "No explicit 'End Declare'.", "hi": "कोई स्पष्ट 'End Declare' नहीं।"}
+    },
+    {
+      "question_id": "pl_14",
+      "question": {
+        "en": "Which statement exits a Basic LOOP immediately?",
+        "hi": "कौन सा कथन Basic LOOP से तुरंत बाहर निकलता है?"
+      },
+      "options": {
+        "a": {"en": "BREAK", "hi": "BREAK"},
+        "b": {"en": "STOP", "hi": "STOP"},
+        "c": {"en": "EXIT", "hi": "EXIT"},
+        "d": {"en": "RETURN", "hi": "RETURN"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Look for the Exit sign.", "hi": "Exit साइन की तलाश करें।"},
+      "explanation": {"en": "Use <code>EXIT;</code> or <code>EXIT WHEN condition;</code> to stop a loop.", "hi": "लूप को रोकने के लिए <code>EXIT;</code> या <code>EXIT WHEN condition;</code> का उपयोग करें।"},
+      "key_takeaway": {"en": "BREAK is not used.", "hi": "BREAK का उपयोग नहीं किया जाता है।"}
+    },
+    {
+      "question_id": "pl_15",
+      "question": {
+        "en": "What data type would you use for a name?",
+        "hi": "आप नाम के लिए किस डेटा प्रकार का उपयोग करेंगे?"
+      },
+      "options": {
+        "a": {"en": "TEXT", "hi": "TEXT"},
+        "b": {"en": "STRING", "hi": "STRING"},
+        "c": {"en": "VARCHAR2(20)", "hi": "VARCHAR2(20)"},
+        "d": {"en": "CHAR", "hi": "CHAR"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Variable Character 2.", "hi": "Variable Character 2."},
+      "explanation": {"en": "<code>VARCHAR2</code> is the standard string type in Oracle PL/SQL.", "hi": "<code>VARCHAR2</code> Oracle PL/SQL में मानक स्ट्रिंग प्रकार है।"},
+      "key_takeaway": {"en": "Always define size (e.g., 20).", "hi": "हमेशा आकार परिभाषित करें (जैसे, 20)।"}
+    },
+    {
+      "question_id": "pl_16",
+      "question": {
+        "en": "Logic Check: What prints?<br><pre><code>IF 5 = 5 THEN\n  DBMS_OUTPUT.PUT_LINE('A');\nELSE\n  DBMS_OUTPUT.PUT_LINE('B');\nEND IF;</code></pre>",
+        "hi": "लॉजिक चेक: क्या प्रिंट होता है?<br><pre><code>IF 5 = 5 THEN\n  DBMS_OUTPUT.PUT_LINE('A');\nELSE\n  DBMS_OUTPUT.PUT_LINE('B');\nEND IF;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "A", "hi": "A"},
+        "b": {"en": "B", "hi": "B"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "Nothing", "hi": "कुछ नहीं"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Is 5 equal to 5?", "hi": "क्या 5, 5 के बराबर है?"},
+      "explanation": {"en": "The condition 5=5 is true, so the THEN block executes.", "hi": "शर्त 5=5 सत्य है, इसलिए THEN ब्लॉक निष्पादित होता है।"},
+      "key_takeaway": {"en": "= is comparison here.", "hi": "= यहाँ तुलना है।"}
+    },
+    {
+      "question_id": "pl_17",
+      "question": {
+        "en": "How do you start a standard comment in PL/SQL?",
+        "hi": "आप PL/SQL में एक मानक टिप्पणी (comment) कैसे शुरू करते हैं?"
+      },
+      "options": {
+        "a": {"en": "#", "hi": "#"},
+        "b": {"en": "//", "hi": "//"},
+        "c": {"en": "--", "hi": "--"},
+        "d": {"en": "

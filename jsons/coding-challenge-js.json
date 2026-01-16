@@ -1,0 +1,349 @@
+{
+  "metadata": {
+    "chapter_title": "JavaScript Coding Challenge",
+    "chapter_title_hindi": "JavaScript कोडिंग चुनौती",
+    "total_questions": 40
+  },
+  "questions": [
+    {
+      "question_id": "js_1",
+      "question": {
+        "en": "What is the output of: <code>var x = 5 + '5';</code>?",
+        "hi": "<code>var x = 5 + '5';</code> का आउटपुट क्या है?"
+      },
+      "options": {
+        "a": {"en": "10", "hi": "10"},
+        "b": {"en": "55", "hi": "55"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "NaN", "hi": "NaN"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Number + String = Concatenation.", "hi": "संख्या + स्ट्रिंग = कॉनकेटनेशन (जोड़)।"},
+      "explanation": {"en": "JavaScript converts the number to a string and joins them: '5' + '5' = '55'.", "hi": "JavaScript संख्या को स्ट्रिंग में बदलता है और उन्हें जोड़ता है: '5' + '5' = '55'।"},
+      "key_takeaway": {"en": "Watch out for strings in math.", "hi": "गणित में स्ट्रिंग्स से सावधान रहें।"}
+    },
+    {
+      "question_id": "js_2",
+      "question": {
+        "en": "Which operator calculates the remainder?",
+        "hi": "कौन सा ऑपरेटर शेषफल (remainder) की गणना करता है?"
+      },
+      "options": {
+        "a": {"en": "/", "hi": "/"},
+        "b": {"en": "%", "hi": "%"},
+        "c": {"en": "#", "hi": "#"},
+        "d": {"en": "R", "hi": "R"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "It is called Modulus.", "hi": "इसे मॉड्यूलस (Modulus) कहा जाता है।"},
+      "explanation": {"en": "The % operator (Modulus) returns the division remainder.", "hi": "% ऑपरेटर (मॉड्यूलस) विभाजन शेषफल लौटाता है।"},
+      "key_takeaway": {"en": "10 % 3 = 1.", "hi": "10 % 3 = 1."}
+    },
+    {
+      "question_id": "js_3",
+      "question": {
+        "en": "Predict the output:<br><pre><code>if(10 > 5) document.write('A');\nelse document.write('B');</code></pre>",
+        "hi": "आउटपुट का अनुमान लगाएं:<br><pre><code>if(10 > 5) document.write('A');\nelse document.write('B');</code></pre>"
+      },
+      "options": {
+        "a": {"en": "A", "hi": "A"},
+        "b": {"en": "B", "hi": "B"},
+        "c": {"en": "AB", "hi": "AB"},
+        "d": {"en": "No output", "hi": "कोई आउटपुट नहीं"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Is 10 greater than 5?", "hi": "क्या 10, 5 से बड़ा है?"},
+      "explanation": {"en": "The condition 10 > 5 is True, so the first block runs.", "hi": "स्थिति 10 > 5 सत्य (True) है, इसलिए पहला ब्लॉक चलता है।"},
+      "key_takeaway": {"en": "If true, do first block.", "hi": "यदि सत्य है, तो पहला ब्लॉक करें।"}
+    },
+    {
+      "question_id": "js_4",
+      "question": {
+        "en": "What does <code>**</code> do in JS?",
+        "hi": "JS में <code>**</code> क्या करता है?"
+      },
+      "options": {
+        "a": {"en": "Multiplication", "hi": "गुणा"},
+        "b": {"en": "Square Root", "hi": "वर्गमूल"},
+        "c": {"en": "Exponentiation (Power)", "hi": "घातांक (Power)"},
+        "d": {"en": "Double add", "hi": "दोहरा जोड़"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "2 ** 3 = 8", "hi": "2 ** 3 = 8"},
+      "explanation": {"en": "The ** operator raises the first number to the power of the second.", "hi": "** ऑपरेटर पहली संख्या को दूसरी संख्या की घात तक बढ़ाता है।"},
+      "key_takeaway": {"en": "Newer JS feature.", "hi": "नई JS सुविधा।"}
+    },
+    {
+      "question_id": "js_5",
+      "question": {
+        "en": "How many times will this loop run?<br><pre><code>for(i=1; i<=5; i++)</code></pre>",
+        "hi": "यह लूप कितनी बार चलेगा?<br><pre><code>for(i=1; i<=5; i++)</code></pre>"
+      },
+      "options": {
+        "a": {"en": "4 times", "hi": "4 बार"},
+        "b": {"en": "5 times", "hi": "5 बार"},
+        "c": {"en": "6 times", "hi": "6 बार"},
+        "d": {"en": "0 times", "hi": "0 बार"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Count: 1, 2, 3, 4, 5.", "hi": "गिनती: 1, 2, 3, 4, 5."},
+      "explanation": {"en": "It runs for i = 1, 2, 3, 4, 5. When i becomes 6, it stops.", "hi": "यह i = 1, 2, 3, 4, 5 के लिए चलता है। जब i 6 हो जाता है, तो यह रुक जाता है।"},
+      "key_takeaway": {"en": "<= includes the last number.", "hi": "<= में अंतिम संख्या शामिल है।"}
+    },
+    {
+      "question_id": "js_6",
+      "question": {
+        "en": "Identify the bug:<br><pre><code>var x = 10\nif x > 5 { ... }</code></pre>",
+        "hi": "बग की पहचान करें:<br><pre><code>var x = 10\nif x > 5 { ... }</code></pre>"
+      },
+      "options": {
+        "a": {"en": "Missing semicolon", "hi": "सेमीकोलन गायब है"},
+        "b": {"en": "Missing parentheses ( ) around condition", "hi": "शर्त के चारों ओर कोष्ठक ( ) गायब हैं"},
+        "c": {"en": "x cannot be 10", "hi": "x 10 नहीं हो सकता"},
+        "d": {"en": "No error", "hi": "कोई त्रुटि नहीं"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "IF statements need brackets.", "hi": "IF कथनों को ब्रैकेट की आवश्यकता होती है।"},
+      "explanation": {"en": "Correct syntax is <code>if (x > 5)</code>.", "hi": "सही सिंटैक्स <code>if (x > 5)</code> है।"},
+      "key_takeaway": {"en": "Always wrap conditions in ( ).", "hi": "हमेशा शर्तों को ( ) में लपेटें।"}
+    },
+    {
+      "question_id": "js_7",
+      "question": {
+        "en": "What is the result of <code>15 % 4</code>?",
+        "hi": "<code>15 % 4</code> का परिणाम क्या है?"
+      },
+      "options": {
+        "a": {"en": "3", "hi": "3"},
+        "b": {"en": "3.75", "hi": "3.75"},
+        "c": {"en": "0", "hi": "0"},
+        "d": {"en": "4", "hi": "4"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "15 divided by 4 is 3 with a remainder of...?", "hi": "15 को 4 से विभाजित करने पर 3 आता है और शेषफल...?"},
+      "explanation": {"en": "4 goes into 15 three times (12). The remainder is 15 - 12 = 3.", "hi": "4 15 में तीन बार (12) जाता है। शेष 15 - 12 = 3 है।"},
+      "key_takeaway": {"en": "Modulus is not division.", "hi": "मॉड्यूलस विभाजन नहीं है।"}
+    },
+    {
+      "question_id": "js_8",
+      "question": {
+        "en": "Which statement stops a loop?",
+        "hi": "कौन सा कथन लूप को रोकता है?"
+      },
+      "options": {
+        "a": {"en": "stop", "hi": "stop"},
+        "b": {"en": "exit", "hi": "exit"},
+        "c": {"en": "break", "hi": "break"},
+        "d": {"en": "return", "hi": "return"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It 'breaks' out of the block.", "hi": "यह ब्लॉक से 'breaks' (टूट) जाता है।"},
+      "explanation": {"en": "The <code>break</code> statement terminates the current loop or switch statement.", "hi": "<code>break</code> कथन वर्तमान लूप या स्विच कथन को समाप्त करता है।"},
+      "key_takeaway": {"en": "Break stops; Continue skips.", "hi": "Break रोकता है; Continue छोड़ता है।"}
+    },
+    {
+      "question_id": "js_9",
+      "question": {
+        "en": "What is the output of:<br><pre><code>var i = 0;\nwhile(i < 3) {\n document.write(i);\n i++;\n}</code></pre>",
+        "hi": "आउटपुट क्या है:<br><pre><code>var i = 0;\nwhile(i < 3) {\n document.write(i);\n i++;\n}</code></pre>"
+      },
+      "options": {
+        "a": {"en": "1 2 3", "hi": "1 2 3"},
+        "b": {"en": "0 1 2", "hi": "0 1 2"},
+        "c": {"en": "0 1 2 3", "hi": "0 1 2 3"},
+        "d": {"en": "Infinite Loop", "hi": "अनंत लूप"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Starts at 0. Stops before 3.", "hi": "0 से शुरू होता है। 3 से पहले रुकता है।"},
+      "explanation": {"en": "Loop runs for 0, 1, 2. When i becomes 3, 3 < 3 is false.", "hi": "लूप 0, 1, 2 के लिए चलता है। जब i 3 हो जाता है, 3 < 3 गलत है।"},
+      "key_takeaway": {"en": "Zero-based counting is common.", "hi": "शून्य-आधारित गिनती आम है।"}
+    },
+    {
+      "question_id": "js_10",
+      "question": {
+        "en": "Correct way to write 'Hello' to the webpage?",
+        "hi": "वेबपेज पर 'Hello' लिखने का सही तरीका?"
+      },
+      "options": {
+        "a": {"en": "document.print('Hello')", "hi": "document.print('Hello')"},
+        "b": {"en": "response.write('Hello')", "hi": "response.write('Hello')"},
+        "c": {"en": "document.write('Hello')", "hi": "document.write('Hello')"},
+        "d": {"en": "print('Hello')", "hi": "print('Hello')"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "You are writing to the document.", "hi": "आप दस्तावेज़ (document) पर लिख रहे हैं।"},
+      "explanation": {"en": "document.write() writes a string of text to a document stream.", "hi": "document.write() दस्तावेज़ स्ट्रीम में टेक्स्ट की एक स्ट्रिंग लिखता है।"},
+      "key_takeaway": {"en": "Standard basic output.", "hi": "मानक बुनियादी आउटपुट।"}
+    },
+    {
+      "question_id": "js_11",
+      "question": {
+        "en": "Which variable name is invalid?",
+        "hi": "कौन सा वेरिएबल नाम अमान्य है?"
+      },
+      "options": {
+        "a": {"en": "myVar", "hi": "myVar"},
+        "b": {"en": "_myVar", "hi": "_myVar"},
+        "c": {"en": "2myVar", "hi": "2myVar"},
+        "d": {"en": "$myVar", "hi": "$myVar"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Variables cannot start with a number.", "hi": "वेरिएबल किसी संख्या से शुरू नहीं हो सकते।"},
+      "explanation": {"en": "Variable names can start with a letter, underscore, or $, but NOT a digit.", "hi": "वेरिएबल नाम एक अक्षर, अंडरस्कोर, या $ से शुरू हो सकते हैं, लेकिन अंक से नहीं।"},
+      "key_takeaway": {"en": "No numbers at the start.", "hi": "शुरुआत में कोई नंबर नहीं।"}
+    },
+    {
+      "question_id": "js_12",
+      "question": {
+        "en": "What does <code>||</code> mean?",
+        "hi": "<code>||</code> का क्या अर्थ है?"
+      },
+      "options": {
+        "a": {"en": "AND", "hi": "AND"},
+        "b": {"en": "NOT", "hi": "NOT"},
+        "c": {"en": "OR", "hi": "OR"},
+        "d": {"en": "Equal", "hi": "Equal"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It means 'This OR That'.", "hi": "इसका मतलब है 'यह या वह' (This OR That)।"},
+      "explanation": {"en": "|| is the logical OR operator. && is AND.", "hi": "|| तार्किक OR ऑपरेटर है। && AND है।"},
+      "key_takeaway": {"en": "Double pipe is OR.", "hi": "डबल पाइप OR है।"}
+    },
+    {
+      "question_id": "js_13",
+      "question": {
+        "en": "How do you add a comment in JS?",
+        "hi": "आप JS में टिप्पणी (comment) कैसे जोड़ते हैं?"
+      },
+      "options": {
+        "a": {"en": "", "hi": ""},
+        "b": {"en": "// comment", "hi": "// comment"},
+        "c": {"en": "** comment", "hi": "** comment"},
+        "d": {"en": "# comment", "hi": "# comment"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Double slash.", "hi": "डबल स्लैश।"},
+      "explanation": {"en": "// starts a single-line comment in JavaScript.", "hi": "// जावास्क्रिप्ट में सिंगल-लाइन टिप्पणी शुरू करता है।"},
+      "key_takeaway": {"en": "Use /* */ for multi-line.", "hi": "मल्टी-लाइन के लिए /* */ का उपयोग करें।"}
+    },
+    {
+      "question_id": "js_14",
+      "question": {
+        "en": "Predict output: <code>var a=10; a+=5;</code>",
+        "hi": "आउटपुट का अनुमान लगाएं: <code>var a=10; a+=5;</code>"
+      },
+      "options": {
+        "a": {"en": "10", "hi": "10"},
+        "b": {"en": "5", "hi": "5"},
+        "c": {"en": "15", "hi": "15"},
+        "d": {"en": "50", "hi": "50"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It means a = a + 5.", "hi": "इसका मतलब है a = a + 5."},
+      "explanation": {"en": "The += operator adds the value to the variable and assigns the result.", "hi": "+= ऑपरेटर वेरिएबल में मान जोड़ता है और परिणाम असाइन करता है।"},
+      "key_takeaway": {"en": "Shorthand assignment.", "hi": "शॉर्टहैंड असाइनमेंट।"}
+    },
+    {
+      "question_id": "js_15",
+      "question": {
+        "en": "Which loop runs AT LEAST once?",
+        "hi": "कौन सा लूप कम से कम एक बार चलता है?"
+      },
+      "options": {
+        "a": {"en": "for", "hi": "for"},
+        "b": {"en": "while", "hi": "while"},
+        "c": {"en": "do-while", "hi": "do-while"},
+        "d": {"en": "if-else", "hi": "if-else"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It 'does' first, checks later.", "hi": "यह पहले 'does' (करता) है, बाद में चेक करता है।"},
+      "explanation": {"en": "A do-while loop executes the code block once before checking the condition.", "hi": "do-while लूप शर्त की जाँच करने से पहले कोड ब्लॉक को एक बार निष्पादित करता है।"},
+      "key_takeaway": {"en": "Exit controlled loop.", "hi": "एग्जिट कंट्रोल्ड लूप।"}
+    },
+    {
+      "question_id": "js_16",
+      "question": {
+        "en": "What is the value of <code>'10' == 10</code>?",
+        "hi": "<code>'10' == 10</code> का मान क्या है?"
+      },
+      "options": {
+        "a": {"en": "true", "hi": "true"},
+        "b": {"en": "false", "hi": "false"},
+        "c": {"en": "error", "hi": "error"},
+        "d": {"en": "undefined", "hi": "undefined"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Double equals checks value, not type.", "hi": "डबल इक्वल मान की जाँच करता है, प्रकार (type) की नहीं।"},
+      "explanation": {"en": "== allows type conversion, so string '10' equals number 10.", "hi": "== प्रकार रूपांतरण की अनुमति देता है, इसलिए स्ट्रिंग '10' संख्या 10 के बराबर है।"},
+      "key_takeaway": {"en": "Use === for strict check.", "hi": "सख्त जाँच के लिए === का उपयोग करें।"}
+    },
+    {
+      "question_id": "js_17",
+      "question": {
+        "en": "Which keyword creates a variable?",
+        "hi": "कौन सा कीवर्ड एक वेरिएबल बनाता है?"
+      },
+      "options": {
+        "a": {"en": "variable", "hi": "variable"},
+        "b": {"en": "var", "hi": "var"},
+        "c": {"en": "v", "hi": "v"},
+        "d": {"en": "int", "hi": "int"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Short for variable.", "hi": "Variable का संक्षिप्त रूप।"},
+      "explanation": {"en": "var, let, and const are used to declare variables.", "hi": "var, let, और const का उपयोग वेरिएबल घोषित करने के लिए किया जाता है।"},
+      "key_takeaway": {"en": "JS is loosely typed.", "hi": "JS loosely typed है।"}
+    },
+    {
+      "question_id": "js_18",
+      "question": {
+        "en": "Correct syntax for an IF statement?",
+        "hi": "IF कथन के लिए सही सिंटैक्स?"
+      },
+      "options": {
+        "a": {"en": "if i == 5 then", "hi": "if i == 5 then"},
+        "b": {"en": "if (i == 5)", "hi": "if (i == 5)"},
+        "c": {"en": "if i = 5", "hi": "if i = 5"},
+        "d": {"en": "if i == 5", "hi": "if i == 5"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Parentheses are mandatory.", "hi": "कोष्ठक (Parentheses) अनिवार्य हैं।"},
+      "explanation": {"en": "The condition must be enclosed in parentheses.", "hi": "शर्त को कोष्ठक में संलग्न किया जाना चाहिए।"},
+      "key_takeaway": {"en": "No 'then' keyword in JS.", "hi": "JS में कोई 'then' कीवर्ड नहीं है।"}
+    },
+    {
+      "question_id": "js_19",
+      "question": {
+        "en": "What is <code>3 + 2 + '7'</code>?",
+        "hi": "<code>3 + 2 + '7'</code> क्या है?"
+      },
+      "options": {
+        "a": {"en": "12", "hi": "12"},
+        "b": {"en": "327", "hi": "327"},
+        "c": {"en": "57", "hi": "57"},
+        "d": {"en": "Error", "hi": "Error"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Left to right: 3+2 happens first.", "hi": "बाएं से दाएं: 3+2 पहले होता है।"},
+      "explanation": {"en": "First 3+2=5. Then 5+'7' becomes '57'.", "hi": "पहले 3+2=5. फिर 5+'7' '57' बन जाता है।"},
+      "key_takeaway": {"en": "Order of operations matters.", "hi": "संचालन का क्रम मायने रखता है।"}
+    },
+    {
+      "question_id": "js_20",
+      "question": {
+        "en": "How do you round 7.25 to the nearest integer?",
+        "hi": "आप 7.25 को निकटतम पूर्णांक (integer) में कैसे राउंड करते हैं?"
+      },
+      "options": {
+        "a": {"en": "Math.rnd(7.25)", "hi": "Math.rnd(7.25)"},
+        "b": {"en": "Math.round(7.25)", "hi": "Math.round(7.25)"},
+        "c": {"en": "round(7.25)", "hi": "round(7.25)"},
+        "d": {"en": "Math.ceil(7.25)", "hi": "Math.ceil(7.25)"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Use the Math object.", "hi": "Math ऑब्जेक्ट का उपयोग करें।"},
+      "explanation": {"en": "Math.round() rounds to the nearest integer.", "hi": "Math.round() निकटतम पूर्णांक तक राउंड करता है।"},
+      "key_takeaway": {"en": "Math functions need Math prefix.", "hi": "गणित कार्यों को Math उपसर्ग की आवश्यकता होती है।"}
+    }
+  ]
+}

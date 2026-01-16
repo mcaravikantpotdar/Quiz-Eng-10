@@ -1,0 +1,349 @@
+{
+  "metadata": {
+    "chapter_title": "HTML Coding Challenge",
+    "chapter_title_hindi": "HTML कोडिंग चुनौती",
+    "total_questions": 40
+  },
+  "questions": [
+    {
+      "question_id": "h_1",
+      "question": {
+        "en": "What does the <code>&lt;title&gt;</code> tag do?",
+        "hi": "<code>&lt;title&gt;</code> टैग क्या करता है?"
+      },
+      "options": {
+        "a": {"en": "Shows a large heading on the page", "hi": "पृष्ठ पर एक बड़ा शीर्षक दिखाता है"},
+        "b": {"en": "Sets the name of the browser tab", "hi": "ब्राउज़र टैब का नाम सेट करता है"},
+        "c": {"en": "Makes text bold", "hi": "टेक्स्ट को बोल्ड करता है"},
+        "d": {"en": "Creates a tooltip", "hi": "एक टूलटिप बनाता है"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "It appears at the very top of the browser window.", "hi": "यह ब्राउज़र विंडो के सबसे ऊपर दिखाई देता है।"},
+      "explanation": {"en": "The &lt;title&gt; tag defines the title of the document shown in the browser's title bar or tab.", "hi": "&lt;title&gt; टैग दस्तावेज़ का शीर्षक परिभाषित करता है जो ब्राउज़र के शीर्षक बार या टैब में दिखाया जाता है।"},
+      "key_takeaway": {"en": "Always put &lt;title&gt; inside &lt;head&gt;.", "hi": "हमेशा &lt;title&gt; को &lt;head&gt; के अंदर रखें।"}
+    },
+    {
+      "question_id": "h_2",
+      "question": {
+        "en": "Which tag creates the largest heading?",
+        "hi": "कौन सा टैग सबसे बड़ा शीर्षक (heading) बनाता है?"
+      },
+      "options": {
+        "a": {"en": "&lt;h6&gt;", "hi": "&lt;h6&gt;"},
+        "b": {"en": "&lt;head&gt;", "hi": "&lt;head&gt;"},
+        "c": {"en": "&lt;h1&gt;", "hi": "&lt;h1&gt;"},
+        "d": {"en": "&lt;header&gt;", "hi": "&lt;header&gt;"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Heading numbers work like a rank: #1 is the top rank.", "hi": "हेडिंग नंबर रैंक की तरह काम करते हैं: #1 शीर्ष रैंक है।"},
+      "explanation": {"en": "&lt;h1&gt; is the main heading and is the largest. &lt;h6&gt; is the smallest.", "hi": "&lt;h1&gt; मुख्य शीर्षक है और सबसे बड़ा है। &lt;h6&gt; सबसे छोटा है।"},
+      "key_takeaway": {"en": "Use &lt;h1&gt; only once per page for SEO.", "hi": "SEO के लिए प्रति पृष्ठ केवल एक बार &lt;h1&gt; का उपयोग करें।"}
+    },
+    {
+      "question_id": "h_3",
+      "question": {
+        "en": "Predict the output:<br><pre><code>&lt;b&gt;Hello&lt;/b&gt; World</code></pre>",
+        "hi": "आउटपुट का अनुमान लगाएं:<br><pre><code>&lt;b&gt;Hello&lt;/b&gt; World</code></pre>"
+      },
+      "options": {
+        "a": {"en": "<b>Hello</b> World", "hi": "<b>Hello</b> World"},
+        "b": {"en": "Hello <b>World</b>", "hi": "Hello <b>World</b>"},
+        "c": {"en": "<b>Hello World</b>", "hi": "<b>Hello World</b>"},
+        "d": {"en": "Hello World", "hi": "Hello World"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Only the word inside the tags is affected.", "hi": "केवल टैग के अंदर का शब्द प्रभावित होता है।"},
+      "explanation": {"en": "Only 'Hello' is wrapped in &lt;b&gt;, so only 'Hello' appears bold.", "hi": "केवल 'Hello' &lt;b&gt; में लिपटा है, इसलिए केवल 'Hello' बोल्ड दिखाई देता है।"},
+      "key_takeaway": {"en": "Tags have a start and an end.", "hi": "टैग की शुरुआत और अंत होता है।"}
+    },
+    {
+      "question_id": "h_4",
+      "question": {
+        "en": "Which tag is used to create a Line Break?",
+        "hi": "लाइन ब्रेक (Line Break) बनाने के लिए किस टैग का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "&lt;lb&gt;", "hi": "&lt;lb&gt;"},
+        "b": {"en": "&lt;break&gt;", "hi": "&lt;break&gt;"},
+        "c": {"en": "&lt;br&gt;", "hi": "&lt;br&gt;"},
+        "d": {"en": "&lt;hr&gt;", "hi": "&lt;hr&gt;"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It is a self-closing tag with 2 letters.", "hi": "यह 2 अक्षरों वाला एक सेल्फ-क्लोजिंग टैग है।"},
+      "explanation": {"en": "&lt;br&gt; inserts a single line break.", "hi": "&lt;br&gt; एक एकल लाइन ब्रेक सम्मिलित करता है।"},
+      "key_takeaway": {"en": "&lt;br&gt; does not need a closing tag.", "hi": "&lt;br&gt; को क्लोजिंग टैग की आवश्यकता नहीं होती है।"}
+    },
+    {
+      "question_id": "h_5",
+      "question": {
+        "en": "What does the code <code>&lt;hr&gt;</code> produce?",
+        "hi": "कोड <code>&lt;hr&gt;</code> क्या उत्पन्न करता है?"
+      },
+      "options": {
+        "a": {"en": "A horizontal line", "hi": "एक क्षैतिज रेखा (Horizontal Line)"},
+        "b": {"en": "A high resolution image", "hi": "एक उच्च रिज़ॉल्यूशन छवि"},
+        "c": {"en": "A heading row", "hi": "एक शीर्षक पंक्ति"},
+        "d": {"en": "A huge row", "hi": "एक बड़ी पंक्ति"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "HR stands for Horizontal Rule.", "hi": "HR का मतलब हॉरिजॉन्टल रूल (Horizontal Rule) है।"},
+      "explanation": {"en": "&lt;hr&gt; defines a thematic break in the content, usually displayed as a horizontal line.", "hi": "&lt;hr&gt; सामग्री में एक विषयगत विराम को परिभाषित करता है, जिसे आमतौर पर एक क्षैतिज रेखा के रूप में प्रदर्शित किया जाता है।"},
+      "key_takeaway": {"en": "Use &lt;hr&gt; to separate sections.", "hi": "अनुभागों को अलग करने के लिए &lt;hr&gt; का उपयोग करें।"}
+    },
+    {
+      "question_id": "h_6",
+      "question": {
+        "en": "Analyze the error:<br><pre><code>&lt;img href='pic.jpg'&gt;</code></pre>",
+        "hi": "त्रुटि का विश्लेषण करें:<br><pre><code>&lt;img href='pic.jpg'&gt;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "Missing closing tag", "hi": "क्लोजिंग टैग गायब है"},
+        "b": {"en": "Wrong attribute: use 'src' instead of 'href'", "hi": "गलत विशेषता: 'href' के बजाय 'src' का उपयोग करें"},
+        "c": {"en": "Images cannot be jpg", "hi": "छवियां jpg नहीं हो सकतीं"},
+        "d": {"en": "No error", "hi": "कोई त्रुटि नहीं"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Images have a 'source', links have a 'hypertext reference'.", "hi": "छवियों में 'source' होता है, लिंक में 'hypertext reference' होता है।"},
+      "explanation": {"en": "The correct attribute for images is <code>src</code> (source), not href.", "hi": "छवियों के लिए सही विशेषता <code>src</code> (source) है, href नहीं।"},
+      "key_takeaway": {"en": "&lt;img src='...'&gt; is the correct syntax.", "hi": "&lt;img src='...'&gt; सही सिंटैक्स है।"}
+    },
+    {
+      "question_id": "h_7",
+      "question": {
+        "en": "What is the purpose of the <code>alt</code> attribute in <code>&lt;img&gt;</code>?",
+        "hi": "<code>&lt;img&gt;</code> में <code>alt</code> विशेषता का उद्देश्य क्या है?"
+      },
+      "options": {
+        "a": {"en": "Makes the image float", "hi": "छवि को तैराता (float) है"},
+        "b": {"en": "Shows text if image fails to load", "hi": "यदि छवि लोड होने में विफल रहती है तो टेक्स्ट दिखाता है"},
+        "c": {"en": "Sets the image altitude", "hi": "छवि की ऊंचाई सेट करता है"},
+        "d": {"en": "Alternatives the image color", "hi": "छवि का रंग बदलता है"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "It stands for 'Alternate Text'.", "hi": "इसका मतलब 'वैकल्पिक पाठ' (Alternate Text) है।"},
+      "explanation": {"en": "The alt attribute specifies an alternate text for an image, if the image cannot be displayed.", "hi": "Alt विशेषता एक छवि के लिए एक वैकल्पिक पाठ निर्दिष्ट करती है, यदि छवि प्रदर्शित नहीं की जा सकती है।"},
+      "key_takeaway": {"en": "Always use alt for accessibility.", "hi": "एक्सेसिबिलिटी के लिए हमेशा alt का उपयोग करें।"}
+    },
+    {
+      "question_id": "h_8",
+      "question": {
+        "en": "How do you create a link to 'page2.html'?",
+        "hi": "'page2.html' का लिंक कैसे बनाएं?"
+      },
+      "options": {
+        "a": {"en": "&lt;a href='page2.html'&gt;Click&lt;/a&gt;", "hi": "&lt;a href='page2.html'&gt;Click&lt;/a&gt;"},
+        "b": {"en": "&lt;link src='page2.html'&gt;Click&lt;/link&gt;", "hi": "&lt;link src='page2.html'&gt;Click&lt;/link&gt;"},
+        "c": {"en": "&lt;href='page2.html'&gt;Click&lt;/href&gt;", "hi": "&lt;href='page2.html'&gt;Click&lt;/href&gt;"},
+        "d": {"en": "&lt;a src='page2.html'&gt;Click&lt;/a&gt;", "hi": "&lt;a src='page2.html'&gt;Click&lt;/a&gt;"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Anchor tag + Hypertext Reference.", "hi": "एंकर टैग + हाइपरटेक्स्ट रेफरेंस।"},
+      "explanation": {"en": "The &lt;a&gt; tag defines a hyperlink, and the href attribute specifies the URL.", "hi": "&lt;a&gt; टैग एक हाइपरलिंक को परिभाषित करता है, और href विशेषता URL निर्दिष्ट करती है।"},
+      "key_takeaway": {"en": "A for Anchor, Href for Reference.", "hi": "A एंकर के लिए, Href रेफरेंस के लिए।"}
+    },
+    {
+      "question_id": "h_9",
+      "question": {
+        "en": "Predict the list style:<br><pre><code>&lt;ol type='i'&gt;\n&lt;li&gt;A&lt;/li&gt;\n&lt;li&gt;B&lt;/li&gt;\n&lt;/ol&gt;</code></pre>",
+        "hi": "सूची शैली (list style) का अनुमान लगाएं:<br><pre><code>&lt;ol type='i'&gt;\n&lt;li&gt;A&lt;/li&gt;\n&lt;li&gt;B&lt;/li&gt;\n&lt;/ol&gt;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "1. A, 2. B", "hi": "1. A, 2. B"},
+        "b": {"en": "i. A, ii. B", "hi": "i. A, ii. B"},
+        "c": {"en": "I. A, II. B", "hi": "I. A, II. B"},
+        "d": {"en": "A. A, B. B", "hi": "A. A, B. B"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Small 'i' means lowercase roman numerals.", "hi": "छोटा 'i' मतलब लोअरकेस रोमन अंक।"},
+      "explanation": {"en": "type='i' specifies lowercase roman numerals (i, ii, iii).", "hi": "type='i' लोअरकेस रोमन अंकों (i, ii, iii) को निर्दिष्ट करता है।"},
+      "key_takeaway": {"en": "OL types: 1, a, A, i, I.", "hi": "OL प्रकार: 1, a, A, i, I."}
+    },
+    {
+      "question_id": "h_10",
+      "question": {
+        "en": "Which tag creates a bulleted list?",
+        "hi": "कौन सा टैग बुलेटेड सूची (bulleted list) बनाता है?"
+      },
+      "options": {
+        "a": {"en": "&lt;ol&gt;", "hi": "&lt;ol&gt;"},
+        "b": {"en": "&lt;list&gt;", "hi": "&lt;list&gt;"},
+        "c": {"en": "&lt;ul&gt;", "hi": "&lt;ul&gt;"},
+        "d": {"en": "&lt;dl&gt;", "hi": "&lt;dl&gt;"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Unordered List.", "hi": "अव्यवस्थित सूची (Unordered List)।"},
+      "explanation": {"en": "&lt;ul&gt; stands for Unordered List, which typically renders as bullets.", "hi": "&lt;ul&gt; का मतलब अनऑर्डर्ड लिस्ट है, जो आमतौर पर बुलेट्स के रूप में प्रस्तुत होती है।"},
+      "key_takeaway": {"en": "UL = Bullets, OL = Numbers.", "hi": "UL = बुलेट्स, OL = नंबर।"}
+    },
+    {
+      "question_id": "h_11",
+      "question": {
+        "en": "What does <code>&lt;tr&gt;</code> stand for in a table?",
+        "hi": "तालिका में <code>&lt;tr&gt;</code> का क्या अर्थ है?"
+      },
+      "options": {
+        "a": {"en": "Table Right", "hi": "Table Right"},
+        "b": {"en": "Table Row", "hi": "Table Row"},
+        "c": {"en": "Table Record", "hi": "Table Record"},
+        "d": {"en": "Table Ruler", "hi": "Table Ruler"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Tables are built row by row.", "hi": "तालिकाएँ पंक्ति दर पंक्ति (row by row) बनाई जाती हैं।"},
+      "explanation": {"en": "&lt;tr&gt; defines a row in an HTML table.", "hi": "&lt;tr&gt; HTML तालिका में एक पंक्ति को परिभाषित करता है।"},
+      "key_takeaway": {"en": "TR contains TH or TD.", "hi": "TR में TH या TD होते हैं।"}
+    },
+    {
+      "question_id": "h_12",
+      "question": {
+        "en": "Which tag makes text bold and centered in a table?",
+        "hi": "कौन सा टैग तालिका में टेक्स्ट को बोल्ड और केंद्रित (centered) करता है?"
+      },
+      "options": {
+        "a": {"en": "&lt;td&gt;", "hi": "&lt;td&gt;"},
+        "b": {"en": "&lt;tr&gt;", "hi": "&lt;tr&gt;"},
+        "c": {"en": "&lt;th&gt;", "hi": "&lt;th&gt;"},
+        "d": {"en": "&lt;tb&gt;", "hi": "&lt;tb&gt;"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Table Header.", "hi": "टेबल हेडर (Table Header)।"},
+      "explanation": {"en": "&lt;th&gt; defines a header cell, which is bold and centered by default.", "hi": "&lt;th&gt; एक हेडर सेल को परिभाषित करता है, जो डिफ़ॉल्ट रूप से बोल्ड और केंद्रित होता है।"},
+      "key_takeaway": {"en": "Use TH for titles, TD for data.", "hi": "शीर्षकों के लिए TH, डेटा के लिए TD का उपयोग करें।"}
+    },
+    {
+      "question_id": "h_13",
+      "question": {
+        "en": "How do you set a background image for the entire page?",
+        "hi": "आप पूरे पृष्ठ के लिए पृष्ठभूमि छवि (background image) कैसे सेट करते हैं?"
+      },
+      "options": {
+        "a": {"en": "&lt;body img='bg.jpg'&gt;", "hi": "&lt;body img='bg.jpg'&gt;"},
+        "b": {"en": "&lt;body background='bg.jpg'&gt;", "hi": "&lt;body background='bg.jpg'&gt;"},
+        "c": {"en": "&lt;img src='bg.jpg'&gt;", "hi": "&lt;img src='bg.jpg'&gt;"},
+        "d": {"en": "&lt;body src='bg.jpg'&gt;", "hi": "&lt;body src='bg.jpg'&gt;"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "It is an attribute of the body tag.", "hi": "यह body टैग की एक विशेषता है।"},
+      "explanation": {"en": "The 'background' attribute in the body tag sets an image as the wallpaper.", "hi": "बॉडी टैग में 'background' विशेषता एक छवि को वॉलपेपर के रूप में सेट करती है।"},
+      "key_takeaway": {"en": "Use 'bgcolor' for colors, 'background' for images.", "hi": "रंगों के लिए 'bgcolor', छवियों के लिए 'background' का उपयोग करें।"}
+    },
+    {
+      "question_id": "h_14",
+      "question": {
+        "en": "What happens if you click an image inside this tag:<br><pre><code>&lt;a href='home.html'&gt;&lt;img src='logo.png'&gt;&lt;/a&gt;</code></pre>",
+        "hi": "यदि आप इस टैग के अंदर किसी छवि पर क्लिक करते हैं तो क्या होता है:<br><pre><code>&lt;a href='home.html'&gt;&lt;img src='logo.png'&gt;&lt;/a&gt;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "Opens the image in full screen", "hi": "छवि को पूर्ण स्क्रीन में खोलता है"},
+        "b": {"en": "Downloads the image", "hi": "छवि डाउनलोड करता है"},
+        "c": {"en": "Goes to home.html", "hi": "home.html पर जाता है"},
+        "d": {"en": "Nothing", "hi": "कुछ नहीं"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "The image acts as the link text.", "hi": "छवि लिंक टेक्स्ट के रूप में कार्य करती है।"},
+      "explanation": {"en": "Wrapping an image in an anchor tag makes the image clickable.", "hi": "एक एंकर टैग में एक छवि को लपेटने से छवि क्लिक करने योग्य हो जाती है।"},
+      "key_takeaway": {"en": "Images can be buttons.", "hi": "छवियाँ बटन हो सकती हैं।"}
+    },
+    {
+      "question_id": "h_15",
+      "question": {
+        "en": "Which code creates a table with a visible border?",
+        "hi": "कौन सा कोड एक दृश्य सीमा (visible border) के साथ एक तालिका बनाता है?"
+      },
+      "options": {
+        "a": {"en": "&lt;table border='1'&gt;", "hi": "&lt;table border='1'&gt;"},
+        "b": {"en": "&lt;table line='yes'&gt;", "hi": "&lt;table line='yes'&gt;"},
+        "c": {"en": "&lt;table style='visible'&gt;", "hi": "&lt;table style='visible'&gt;"},
+        "d": {"en": "&lt;table&gt;", "hi": "&lt;table&gt;"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "The attribute is 'border'.", "hi": "विशेषता 'border' है।"},
+      "explanation": {"en": "The border attribute specifies the width of the table border. '1' makes it visible.", "hi": "border विशेषता तालिका सीमा की चौड़ाई निर्दिष्ट करती है। '1' इसे दृश्यमान बनाता है।"},
+      "key_takeaway": {"en": "Default border is 0 (invisible).", "hi": "डिफ़ॉल्ट बॉर्डर 0 (अदृश्य) है।"}
+    },
+    {
+      "question_id": "h_16",
+      "question": {
+        "en": "What does the <code>&lt;marquee&gt;</code> tag do?",
+        "hi": "<code>&lt;marquee&gt;</code> टैग क्या करता है?"
+      },
+      "options": {
+        "a": {"en": "Makes text bold", "hi": "टेक्स्ट को बोल्ड करता है"},
+        "b": {"en": "Scrolls text or images", "hi": "टेक्स्ट या छवियों को स्क्रॉल करता है"},
+        "c": {"en": "Blinks text", "hi": "टेक्स्ट को ब्लिंक करता है"},
+        "d": {"en": "Highlights text", "hi": "टेक्स्ट को हाइलाइट करता है"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Think of a news ticker.", "hi": "एक समाचार टिकर के बारे में सोचें।"},
+      "explanation": {"en": "Marquee creates a scrolling effect for text or images.", "hi": "Marquee टेक्स्ट या छवियों के लिए एक स्क्रॉलिंग प्रभाव बनाता है।"},
+      "key_takeaway": {"en": "Marquee is old school HTML.", "hi": "Marquee पुराना HTML है।"}
+    },
+    {
+      "question_id": "h_17",
+      "question": {
+        "en": "Identify the logic error:<br><pre><code>&lt;ol&gt;&lt;td&gt;Item 1&lt;/td&gt;&lt;/ol&gt;</code></pre>",
+        "hi": "तर्क त्रुटि पहचानें:<br><pre><code>&lt;ol&gt;&lt;td&gt;Item 1&lt;/td&gt;&lt;/ol&gt;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "Lists cannot have data", "hi": "सूचियों में डेटा नहीं हो सकता"},
+        "b": {"en": "&lt;td&gt; belongs in tables, use &lt;li&gt; instead", "hi": "&lt;td&gt; तालिकाओं में होता है, इसके बजाय &lt;li&gt; का उपयोग करें"},
+        "c": {"en": "Missing &lt;tr&gt;", "hi": "&lt;tr&gt; गायब है"},
+        "d": {"en": "No error", "hi": "कोई त्रुटि नहीं"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "TD = Table Data, LI = List Item.", "hi": "TD = टेबल डेटा, LI = लिस्ट आइटम।"},
+      "explanation": {"en": "Lists (OL/UL) must contain List Items (LI), not Table Data (TD).", "hi": "सूचियों (OL/UL) में सूची आइटम (LI) होने चाहिए, तालिका डेटा (TD) नहीं।"},
+      "key_takeaway": {"en": "Nesting rules matter.", "hi": "नेस्टिंग नियम मायने रखते हैं।"}
+    },
+    {
+      "question_id": "h_18",
+      "question": {
+        "en": "Which color will the background be?<br><pre><code>&lt;body bgcolor='#0000FF'&gt;</code></pre>",
+        "hi": "पृष्ठभूमि किस रंग की होगी?<br><pre><code>&lt;body bgcolor='#0000FF'&gt;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "Red", "hi": "लाल"},
+        "b": {"en": "Green", "hi": "हरा"},
+        "c": {"en": "Blue", "hi": "नीला"},
+        "d": {"en": "Black", "hi": "काला"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "The hex code is RGB (Red, Green, Blue). FF is in the Blue slot.", "hi": "हेक्स कोड RGB (लाल, हरा, नीला) है। FF ब्लू स्लॉट में है।"},
+      "explanation": {"en": "#0000FF has 00 Red, 00 Green, and FF (Max) Blue.", "hi": "#0000FF में 00 लाल, 00 हरा, और FF (अधिकतम) नीला है।"},
+      "key_takeaway": {"en": "Hex codes are 6 digits.", "hi": "हेक्स कोड 6 अंकों के होते हैं।"}
+    },
+    {
+      "question_id": "h_19",
+      "question": {
+        "en": "What will <code>&lt;font color='red'&gt;Text&lt;/font&gt;</code> do?",
+        "hi": "<code>&lt;font color='red'&gt;Text&lt;/font&gt;</code> क्या करेगा?"
+      },
+      "options": {
+        "a": {"en": "Highlight the background red", "hi": "पृष्ठभूमि को लाल हाइलाइट करेगा"},
+        "b": {"en": "Change text color to red", "hi": "टेक्स्ट का रंग लाल कर देगा"},
+        "c": {"en": "Make the font bigger", "hi": "फ़ॉन्ट को बड़ा करेगा"},
+        "d": {"en": "Make the text bold", "hi": "टेक्स्ट को बोल्ड करेगा"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "The attribute is 'color'.", "hi": "विशेषता 'color' है।"},
+      "explanation": {"en": "The font tag with the color attribute changes the text color.", "hi": "Color विशेषता के साथ font टैग टेक्स्ट का रंग बदलता है।"},
+      "key_takeaway": {"en": "Font tag is deprecated but good to know.", "hi": "Font टैग पुराना है लेकिन जानना अच्छा है।"}
+    },
+    {
+      "question_id": "h_20",
+      "question": {
+        "en": "How do you make an ordered list start with 'C'?",
+        "hi": "आप 'C' से शुरू होने वाली एक आदेशित सूची (ordered list) कैसे बनाते हैं?"
+      },
+      "options": {
+        "a": {"en": "&lt;ol start='3' type='A'&gt;", "hi": "&lt;ol start='3' type='A'&gt;"},
+        "b": {"en": "&lt;ol begin='C'&gt;", "hi": "&lt;ol begin='C'&gt;"},
+        "c": {"en": "&lt;ol start='C'&gt;", "hi": "&lt;ol start='C'&gt;"},
+        "d": {"en": "&lt;ol type='C'&gt;", "hi": "&lt;ol type='C'&gt;"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Type 'A' makes it letters. Start '3' makes it the 3rd letter.", "hi": "Type 'A' इसे अक्षर बनाता है। Start '3' इसे तीसरा अक्षर बनाता है।"},
+      "explanation": {"en": "Type='A' sets uppercase letters. Start='3' starts counting at the 3rd item (C).", "hi": "Type='A' बड़े अक्षरों को सेट करता है। Start='3' तीसरे आइटम (C) से गिनती शुरू करता है।"},
+      "key_takeaway": {"en": "Start attribute always takes a number.", "hi": "Start विशेषता हमेशा एक संख्या लेती है।"}
+    }
+  ]
+}

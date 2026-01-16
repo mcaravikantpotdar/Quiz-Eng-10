@@ -1,0 +1,349 @@
+{
+  "metadata": {
+    "chapter_title": "PHP Coding Challenge",
+    "chapter_title_hindi": "PHP कोडिंग चुनौती",
+    "total_questions": 40
+  },
+  "questions": [
+    {
+      "question_id": "php_1",
+      "question": {
+        "en": "What is the correct way to start a PHP block?",
+        "hi": "PHP ब्लॉक शुरू करने का सही तरीका क्या है?"
+      },
+      "options": {
+        "a": {"en": "<php>", "hi": "<php>"},
+        "b": {"en": "<?php", "hi": "<?php"},
+        "c": {"en": "<script>", "hi": "<script>"},
+        "d": {"en": "<?", "hi": "<?"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "It uses a question mark.", "hi": "यह प्रश्न चिह्न का उपयोग करता है।"},
+      "explanation": {"en": "The standard opening tag for PHP code is <code>&lt;?php</code>.", "hi": "PHP कोड के लिए मानक शुरुआती टैग <code>&lt;?php</code> है।"},
+      "key_takeaway": {"en": "Always end with ?>", "hi": "हमेशा ?> के साथ समाप्त करें"}
+    },
+    {
+      "question_id": "php_2",
+      "question": {
+        "en": "Which symbol is used for variables in PHP?",
+        "hi": "PHP में वेरिएबल्स के लिए किस प्रतीक का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "@", "hi": "@"},
+        "b": {"en": "#", "hi": "#"},
+        "c": {"en": "$", "hi": "$"},
+        "d": {"en": "&", "hi": "&"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "Think of currency.", "hi": "मुद्रा (Currency) के बारे में सोचें।"},
+      "explanation": {"en": "All variables in PHP must start with a dollar sign ($), like <code>$name</code>.", "hi": "PHP में सभी वेरिएबल्स डॉलर साइन ($) से शुरू होने चाहिए, जैसे <code>$name</code>।"},
+      "key_takeaway": {"en": "No $ means it's a constant or error.", "hi": "कोई $ नहीं होने का मतलब है कि यह एक स्थिरांक (constant) या त्रुटि है।"}
+    },
+    {
+      "question_id": "php_3",
+      "question": {
+        "en": "Predict the output:<br><pre><code>$txt = 'World';\necho 'Hello ' . $txt;</code></pre>",
+        "hi": "आउटपुट का अनुमान लगाएं:<br><pre><code>$txt = 'World';\necho 'Hello ' . $txt;</code></pre>"
+      },
+      "options": {
+        "a": {"en": "Hello World", "hi": "Hello World"},
+        "b": {"en": "Hello + World", "hi": "Hello + World"},
+        "c": {"en": "Hello . World", "hi": "Hello . World"},
+        "d": {"en": "Error", "hi": "त्रुटि"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "The dot (.) connects strings.", "hi": "डॉट (.) स्ट्रिंग्स को जोड़ता है।"},
+      "explanation": {"en": "In PHP, the dot (.) operator is used for string concatenation (joining text).", "hi": "PHP में, डॉट (.) ऑपरेटर का उपयोग स्ट्रिंग कॉनकेटनेशन (टेक्स्ट जोड़ने) के लिए किया जाता है।"},
+      "key_takeaway": {"en": "JS uses +, PHP uses .", "hi": "JS + का उपयोग करता है, PHP . का उपयोग करता है।"}
+    },
+    {
+      "question_id": "php_4",
+      "question": {
+        "en": "Which command displays text on the screen?",
+        "hi": "कौन सा कमांड स्क्रीन पर टेक्स्ट प्रदर्शित करता है?"
+      },
+      "options": {
+        "a": {"en": "print_line", "hi": "print_line"},
+        "b": {"en": "write", "hi": "write"},
+        "c": {"en": "echo", "hi": "echo"},
+        "d": {"en": "display", "hi": "display"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It sounds like a repeating sound.", "hi": "यह एक दोहराई जाने वाली ध्वनि (Echo) जैसा लगता है।"},
+      "explanation": {"en": "<code>echo</code> is the most common way to output text in PHP.", "hi": "<code>echo</code> PHP में टेक्स्ट आउटपुट करने का सबसे आम तरीका है।"},
+      "key_takeaway": {"en": "Print works too, but echo is faster.", "hi": "Print भी काम करता है, लेकिन echo तेज है।"}
+    },
+    {
+      "question_id": "php_5",
+      "question": {
+        "en": "Identify the logic error:<br><pre><code>if ($a = 10) { echo 'Equal'; }</code></pre>",
+        "hi": "तर्क त्रुटि पहचानें:<br><pre><code>if ($a = 10) { echo 'Equal'; }</code></pre>"
+      },
+      "options": {
+        "a": {"en": "It assigns 10 instead of comparing", "hi": "यह तुलना करने के बजाय 10 असाइन करता है"},
+        "b": {"en": "Missing semicolon", "hi": "सेमीकोलन गायब है"},
+        "c": {"en": "Variable needs no $", "hi": "वेरिएबल को $ की आवश्यकता नहीं है"},
+        "d": {"en": "No error", "hi": "कोई त्रुटि नहीं"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Comparison needs two equals signs.", "hi": "तुलना के लिए दो बराबर चिह्नों की आवश्यकता होती है।"},
+      "explanation": {"en": "<code>$a = 10</code> sets a to 10 (which is true). To compare, use <code>$a == 10</code>.", "hi": "<code>$a = 10</code> a को 10 पर सेट करता है (जो सत्य है)। तुलना करने के लिए, <code>$a == 10</code> का उपयोग करें।"},
+      "key_takeaway": {"en": "= is Assignment, == is Compare.", "hi": "= असाइनमेंट है, == तुलना है।"}
+    },
+    {
+      "question_id": "php_6",
+      "question": {
+        "en": "What is the output of <code>echo 5 ** 2;</code>?",
+        "hi": "<code>echo 5 ** 2;</code> का आउटपुट क्या है?"
+      },
+      "options": {
+        "a": {"en": "10", "hi": "10"},
+        "b": {"en": "7", "hi": "7"},
+        "c": {"en": "25", "hi": "25"},
+        "d": {"en": "2.5", "hi": "2.5"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "It means 5 to the power of 2.", "hi": "इसका मतलब 5 की घात 2 है।"},
+      "explanation": {"en": "** is the exponentiation operator. 5 * 5 = 25.", "hi": "** घातांक ऑपरेटर है। 5 * 5 = 25."},
+      "key_takeaway": {"en": "Same as JS.", "hi": "JS के समान।"}
+    },
+    {
+      "question_id": "php_7",
+      "question": {
+        "en": "How do you check 'Not Equal' in PHP?",
+        "hi": "आप PHP में 'समान नहीं' (Not Equal) की जाँच कैसे करते हैं?"
+      },
+      "options": {
+        "a": {"en": "<>", "hi": "<>"},
+        "b": {"en": "!=", "hi": "!="},
+        "c": {"en": "Both A and B", "hi": "A और B दोनों"},
+        "d": {"en": "!==", "hi": "!=="}
+      },
+      "correct_option": "c",
+      "hint": {"en": "PHP supports two ways.", "hi": "PHP दो तरीकों का समर्थन करता है।"},
+      "explanation": {"en": "PHP supports both <code>!=</code> and <code>&lt;&gt;</code> for inequality.", "hi": "PHP असमानता के लिए <code>!=</code> और <code>&lt;&gt;</code> दोनों का समर्थन करता है।"},
+      "key_takeaway": {"en": "!= is more common.", "hi": "!= अधिक सामान्य है।"}
+    },
+    {
+      "question_id": "php_8",
+      "question": {
+        "en": "What ends a PHP statement?",
+        "hi": "PHP कथन को क्या समाप्त करता है?"
+      },
+      "options": {
+        "a": {"en": "Period (.)", "hi": "पूर्ण विराम (.)"},
+        "b": {"en": "Semicolon (;)", "hi": "अर्धविराम (;)"},
+        "c": {"en": "New line", "hi": "नई पंक्ति"},
+        "d": {"en": "Colon (:)", "hi": "कोलन (:)"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Just like C, Java, and JS.", "hi": "C, Java, और JS की तरह।"},
+      "explanation": {"en": "Every PHP command must end with a semicolon (;). Missing it causes a syntax error.", "hi": "प्रत्येक PHP कमांड अर्धविराम (;) के साथ समाप्त होना चाहिए। इसे भूलने से सिंटैक्स त्रुटि होती है।"},
+      "key_takeaway": {"en": "Common bug source.", "hi": "सामान्य बग स्रोत।"}
+    },
+    {
+      "question_id": "php_9",
+      "question": {
+        "en": "Predict the loop output:<br><pre><code>$x=1; while($x<3) { echo $x; $x++; }</code></pre>",
+        "hi": "लूप आउटपुट का अनुमान लगाएं:<br><pre><code>$x=1; while($x<3) { echo $x; $x++; }</code></pre>"
+      },
+      "options": {
+        "a": {"en": "123", "hi": "123"},
+        "b": {"en": "12", "hi": "12"},
+        "c": {"en": "1", "hi": "1"},
+        "d": {"en": "Infinite", "hi": "अनंत"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Runs for 1, 2. Stops at 3.", "hi": "1, 2 के लिए चलता है। 3 पर रुकता है।"},
+      "explanation": {"en": "It prints 1, becomes 2. Prints 2, becomes 3. 3 < 3 is false, so it stops.", "hi": "यह 1 प्रिंट करता है, 2 हो जाता है। 2 प्रिंट करता है, 3 हो जाता है। 3 < 3 गलत है, इसलिए यह रुक जाता है।"},
+      "key_takeaway": {"en": "Watch the condition carefully.", "hi": "शर्त को ध्यान से देखें।"}
+    },
+    {
+      "question_id": "php_10",
+      "question": {
+        "en": "Which loop guarantees at least one execution?",
+        "hi": "कौन सा लूप कम से कम एक निष्पादन (execution) की गारंटी देता है?"
+      },
+      "options": {
+        "a": {"en": "for", "hi": "for"},
+        "b": {"en": "foreach", "hi": "foreach"},
+        "c": {"en": "while", "hi": "while"},
+        "d": {"en": "do-while", "hi": "do-while"}
+      },
+      "correct_option": "d",
+      "hint": {"en": "It acts first, thinks later.", "hi": "यह पहले कार्य करता है, बाद में सोचता है।"},
+      "explanation": {"en": "The do-while loop runs the code block first, then checks the condition.", "hi": "do-while लूप पहले कोड ब्लॉक चलाता है, फिर शर्त की जाँच करता है।"},
+      "key_takeaway": {"en": "Useful for menus.", "hi": "मेनू के लिए उपयोगी।"}
+    },
+    {
+      "question_id": "php_11",
+      "question": {
+        "en": "How do you write 'Else If' in PHP?",
+        "hi": "आप PHP में 'Else If' कैसे लिखते हैं?"
+      },
+      "options": {
+        "a": {"en": "else if", "hi": "else if"},
+        "b": {"en": "elseif", "hi": "elseif"},
+        "c": {"en": "Both A and B are valid", "hi": "A और B दोनों मान्य हैं"},
+        "d": {"en": "elif", "hi": "elif"}
+      },
+      "correct_option": "c",
+      "hint": {"en": "PHP is flexible.", "hi": "PHP लचीला है।"},
+      "explanation": {"en": "PHP accepts both <code>elseif</code> (one word) and <code>else if</code> (two words).", "hi": "PHP <code>elseif</code> (एक शब्द) और <code>else if</code> (दो शब्द) दोनों को स्वीकार करता है।"},
+      "key_takeaway": {"en": "Standard practice is 'elseif'.", "hi": "मानक अभ्यास 'elseif' है।"}
+    },
+    {
+      "question_id": "php_12",
+      "question": {
+        "en": "What logic does the <code>switch</code> statement use?",
+        "hi": "<code>switch</code> कथन किस तर्क का उपयोग करता है?"
+      },
+      "options": {
+        "a": {"en": "Matches a value against cases", "hi": "मामलों (cases) के खिलाफ एक मान से मेल खाता है"},
+        "b": {"en": "Checks if true or false", "hi": "जाँचता है कि सही है या गलत"},
+        "c": {"en": "Loops through an array", "hi": "एक सरणी (array) के माध्यम से लूप करता है"},
+        "d": {"en": "Connects to database", "hi": "डेटाबेस से जुड़ता है"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "It switches between different options.", "hi": "यह विभिन्न विकल्पों के बीच स्विच करता है।"},
+      "explanation": {"en": "Switch selects one of many blocks of code to be executed based on a variable's value.", "hi": "स्विच एक वेरिएबल के मान के आधार पर निष्पादित किए जाने वाले कोड के कई ब्लॉक में से एक का चयन करता है।"},
+      "key_takeaway": {"en": "Cleaner than many if-else.", "hi": "कई if-else से साफ।"}
+    },
+    {
+      "question_id": "php_13",
+      "question": {
+        "en": "If <code>$m=50</code>, what prints?<br><pre><code>if($m>90) echo 'A';\nelseif($m>=50) echo 'B';</code></pre>",
+        "hi": "यदि <code>$m=50</code>, तो क्या प्रिंट होता है?<br><pre><code>if($m>90) echo 'A';\nelseif($m>=50) echo 'B';</code></pre>"
+      },
+      "options": {
+        "a": {"en": "A", "hi": "A"},
+        "b": {"en": "B", "hi": "B"},
+        "c": {"en": "AB", "hi": "AB"},
+        "d": {"en": "Nothing", "hi": "कुछ नहीं"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "50 is equal to 50.", "hi": "50, 50 के बराबर है।"},
+      "explanation": {"en": "The first condition (50>90) is false. The second (50>=50) is true.", "hi": "पहली शर्त (50>90) गलत है। दूसरी (50>=50) सही है।"},
+      "key_takeaway": {"en": "Code runs top to bottom.", "hi": "कोड ऊपर से नीचे चलता है।"}
+    },
+    {
+      "question_id": "php_14",
+      "question": {
+        "en": "Which code snippet correctly calculates the area of a circle?",
+        "hi": "कौन सा कोड स्निपेट वृत्त के क्षेत्रफल की सही गणना करता है?"
+      },
+      "options": {
+        "a": {"en": "$A = 3.14 * $r * 2;", "hi": "$A = 3.14 * $r * 2;"},
+        "b": {"en": "$A = 3.14 * $r ** 2;", "hi": "$A = 3.14 * $r ** 2;"},
+        "c": {"en": "$A = 3.14 + $r + $r;", "hi": "$A = 3.14 + $r + $r;"},
+        "d": {"en": "$A = 3.14 % $r;", "hi": "$A = 3.14 % $r;"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Area is Pi * r squared.", "hi": "क्षेत्रफल पाई * r वर्ग (squared) है।"},
+      "explanation": {"en": "<code>$r ** 2</code> squares the radius. Multiplied by Pi (3.14) gives Area.", "hi": "<code>$r ** 2</code> त्रिज्या का वर्ग करता है। पाई (3.14) से गुणा करने पर क्षेत्रफल मिलता है।"},
+      "key_takeaway": {"en": "** is power.", "hi": "** पावर (घात) है।"}
+    },
+    {
+      "question_id": "php_15",
+      "question": {
+        "en": "What does the <code>default</code> case in a Switch statement do?",
+        "hi": "स्विच कथन में <code>default</code> केस क्या करता है?"
+      },
+      "options": {
+        "a": {"en": "Runs if no other case matches", "hi": "चलता है यदि कोई अन्य केस मेल नहीं खाता"},
+        "b": {"en": "Runs first", "hi": "पहले चलता है"},
+        "c": {"en": "Resets the variable", "hi": "वेरिएबल को रीसेट करता है"},
+        "d": {"en": "Nothing", "hi": "कुछ नहीं"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "It is the fallback option.", "hi": "यह फॉलबैक विकल्प है।"},
+      "explanation": {"en": "The default block executes if the switch variable does not match any 'case' value.", "hi": "डिफ़ॉल्ट ब्लॉक निष्पादित होता है यदि स्विच वेरिएबल किसी भी 'केस' मान से मेल नहीं खाता है।"},
+      "key_takeaway": {"en": "Like the final 'else'.", "hi": "अंतिम 'else' की तरह।"}
+    },
+    {
+      "question_id": "php_16",
+      "question": {
+        "en": "Analyze the loop:<br><pre><code>for($i=10; $i>=0; $i-=2)</code></pre>",
+        "hi": "लूप का विश्लेषण करें:<br><pre><code>for($i=10; $i>=0; $i-=2)</code></pre>"
+      },
+      "options": {
+        "a": {"en": "Counts up by 2", "hi": "2 से ऊपर गिनता है"},
+        "b": {"en": "Counts down by 2", "hi": "2 से नीचे गिनता है"},
+        "c": {"en": "Infinite loop", "hi": "अनंत लूप"},
+        "d": {"en": "Does not run", "hi": "नहीं चलता"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "i-=2 means subtract 2.", "hi": "i-=2 का मतलब 2 घटाना है।"},
+      "explanation": {"en": "It starts at 10 and subtracts 2 each time (10, 8, 6...) until it hits 0.", "hi": "यह 10 से शुरू होता है और हर बार 2 घटाता है (10, 8, 6...) जब तक कि यह 0 तक नहीं पहुँच जाता।"},
+      "key_takeaway": {"en": "Decremental loop.", "hi": "घटने वाला लूप (Decremental loop)।"}
+    },
+    {
+      "question_id": "php_17",
+      "question": {
+        "en": "What is the result of <code>10 % 3</code>?",
+        "hi": "<code>10 % 3</code> का परिणाम क्या है?"
+      },
+      "options": {
+        "a": {"en": "3", "hi": "3"},
+        "b": {"en": "1", "hi": "1"},
+        "c": {"en": "0", "hi": "0"},
+        "d": {"en": "3.33", "hi": "3.33"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Remainder of division.", "hi": "विभाजन का शेषफल।"},
+      "explanation": {"en": "3 goes into 10 three times (9). Remainder is 1.", "hi": "3 10 में तीन बार (9) जाता है। शेष 1 है।"},
+      "key_takeaway": {"en": "Modulus operator.", "hi": "मॉड्यूलस ऑपरेटर।"}
+    },
+    {
+      "question_id": "php_18",
+      "question": {
+        "en": "Which operator is Logical AND?",
+        "hi": "कौन सा ऑपरेटर लॉजिकल AND है?"
+      },
+      "options": {
+        "a": {"en": "&&", "hi": "&&"},
+        "b": {"en": "||", "hi": "||"},
+        "c": {"en": "!", "hi": "!"},
+        "d": {"en": "&", "hi": "&"}
+      },
+      "correct_option": "a",
+      "hint": {"en": "Double ampersand.", "hi": "डबल एम्परसेंड।"},
+      "explanation": {"en": "&& returns true only if BOTH conditions are true.", "hi": "&& केवल तभी सत्य लौटाता है जब दोनों शर्तें सत्य हों।"},
+      "key_takeaway": {"en": "|| is OR.", "hi": "|| OR है।"}
+    },
+    {
+      "question_id": "php_19",
+      "question": {
+        "en": "How to create a comment in PHP?",
+        "hi": "PHP में टिप्पणी (comment) कैसे बनाएं?"
+      },
+      "options": {
+        "a": {"en": "// Comment", "hi": "// Comment"},
+        "b": {"en": "# Comment", "hi": "# Comment"},
+        "c": {"en": "/* Comment */", "hi": "/* Comment */"},
+        "d": {"en": "All of the above", "hi": "उपरोक्त सभी"}
+      },
+      "correct_option": "d",
+      "hint": {"en": "PHP supports multiple styles.", "hi": "PHP कई शैलियों का समर्थन करता है।"},
+      "explanation": {"en": "PHP supports C++ style (//), Unix shell style (#), and C style (/* */) comments.", "hi": "PHP C++ शैली (//), यूनिक्स शेल शैली (#), और C शैली (/* */) टिप्पणियों का समर्थन करता है।"},
+      "key_takeaway": {"en": "Very flexible.", "hi": "बहुत लचीला।"}
+    },
+    {
+      "question_id": "php_20",
+      "question": {
+        "en": "What does <code>$x++</code> do?",
+        "hi": "<code>$x++</code> क्या करता है?"
+      },
+      "options": {
+        "a": {"en": "Adds 2 to x", "hi": "x में 2 जोड़ता है"},
+        "b": {"en": "Adds 1 to x", "hi": "x में 1 जोड़ता है"},
+        "c": {"en": "Multiplies x by itself", "hi": "x को उसी से गुणा करता है"},
+        "d": {"en": "Deletes x", "hi": "x को हटाता है"}
+      },
+      "correct_option": "b",
+      "hint": {"en": "Increment operator.", "hi": "इंक्रीमेंट ऑपरेटर।"},
+      "explanation": {"en": "++ is the increment operator, increasing the integer value by one.", "hi": "++ इंक्रीमेंट ऑपरेटर है, जो पूर्णांक मान को एक से बढ़ाता है।"},
+      "key_takeaway": {"en": "Used often in loops.", "hi": "अक्सर लूप में प्रयोग किया जाता है।"}
+    }
+  ]
+}
