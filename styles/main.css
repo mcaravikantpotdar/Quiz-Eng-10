@@ -1,271 +1,121 @@
-/* --- GLOBAL RESET & FONTS --- */
-:root {
-    --primary: #2563eb;
-    --primary-dark: #1e40af;
-    --success: #22c55e;
-    --error: #ef4444;
-    --background: #f8fafc;
-    --card-bg: #ffffff;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
-    --code-bg: #1e293b;
-    --code-text: #e2e8f0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeTutor</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
 
-body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background-color: var(--background);
-    color: var(--text-main);
-    margin: 0;
-    padding: 20px;
-    line-height: 1.6;
-}
+    <div class="quiz-container">
+        
+        <div id="uploadScreen" class="screen active">
+            <div class="quiz-header">
+                <h1>🎓 CodeTutor</h1>
+                <button id="viewScoreboardBtn" style="font-size:0.8rem; padding:8px 12px;">🏆 Rankings</button>
+            </div>
+            
+            <div class="login-panel">
+                <div class="input-group">
+                    <input type="text" id="studentName" placeholder="Enter Your Name" />
+                    <input type="text" id="schoolName" placeholder="Enter School Name" />
+                </div>
+                
+                <div class="mode-selector">
+                    <label><input type="radio" name="quizMode" value="practice" checked> 🛡️ Practice Mode</label>
+                    <label><input type="radio" name="quizMode" value="test"> ⚔️ Test Mode</label>
+                </div>
 
-/* --- QUIZ CONTAINER --- */
-.quiz-container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 20px;
-}
+                <div style="font-weight:600; color:#64748b;">Select a Chapter:</div>
+                <div id="quizList" class="quiz-list">
+                    </div>
 
-/* --- HEADER & SCOREBOARD --- */
-.quiz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
+                <div class="action-bar">
+                    <button id="startQuiz" disabled>Start Learning ▶</button>
+                    <button id="demoModeBtn" style="background:none; color:#64748b; margin-left:auto; padding:5px;">🛠️ Demo</button>
+                </div>
+            </div>
+            <div id="errorMessage" style="color:var(--error); margin-top:10px; text-align:center;"></div>
+        </div>
 
-.stats-bar {
-    display: flex;
-    gap: 15px;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
+        <div id="quizScreen" class="screen">
+            <div class="quiz-header">
+                <div id="chapterTitle" style="font-weight:bold;">Chapter</div>
+                <div class="stats-bar">
+                    <div>⏰ <span id="timer">0</span>s</div>
+                    <div>⭐ <span id="currentScore">0</span></div>
+                </div>
+            </div>
 
-.stat-item {
-    background: #f1f5f9;
-    padding: 5px 12px;
-    border-radius: 20px;
-}
+            <div id="questionGrid" style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:20px;"></div>
 
-/* --- QUESTION AREA --- */
-.question-area {
-    margin-bottom: 25px;
-}
+            <div class="question-area">
+                <div class="q-badge">Question <span id="currentQuestion">1</span> / <span id="totalQuestions">0</span></div>
+                <div class="question-text">
+                    <div id="questionEn"></div>
+                    <div id="questionHi" style="color:#64748b; font-size:0.9em; margin-top:8px;"></div>
+                </div>
+            </div>
 
-.question-text {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text-main);
-    margin-bottom: 15px;
-}
+            <div id="optionsContainer" class="options-grid"></div>
 
-/* --- CODE SNIPPET STYLING (The "VS Code" Look) --- */
-.question-text pre, 
-.option-content pre {
-    background: var(--code-bg);
-    color: var(--code-text);
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 0.95em;
-    overflow-x: auto; /* Scroll sideways if code is too long */
-    margin: 10px 0;
-    white-space: pre; /* Respects your line breaks and indentations strictly */
-    text-align: left;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-}
+            <div class="nav-buttons">
+                <button id="prevBtn">← Back</button>
+                <button id="hintBtn">💡 Hint</button>
+                <button id="nextBtn">Next →</button>
+            </div>
+            <div style="text-align:center; margin-top:20px;">
+                <button id="quitBtn" style="background:none; color:#ef4444; padding:5px;">Quit Quiz</button>
+            </div>
+        </div>
 
-.question-text code, 
-.option-content code {
-    font-family: inherit;
-    color: #38bdf8; /* Light blue for keywords */
-}
+        <div id="resultsScreen" class="screen">
+            <div class="result-card">
+                <h2>🎉 Quiz Completed!</h2>
+                <div class="score-circle">
+                    <span id="finalScore">0</span> / <span id="totalPossible">0</span>
+                </div>
+                <h3 id="percentage" style="color:var(--primary);">0%</h3>
+                <p>Time: <span id="totalTime">0m</span></p>
+                
+                <div id="resultsBreakdown" class="breakdown-list"></div>
 
-/* --- OPTIONS GRID --- */
-.options-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+                <div class="nav-buttons" style="justify-content:center; flex-wrap:wrap;">
+                    <button id="retakeBtn">🔄 Retake</button>
+                    <button id="homeBtn">🏠 Home</button>
+                </div>
+            </div>
+        </div>
 
-/* --- OPTION CARD (The Button) --- */
-.option-card {
-    display: flex;
-    align-items: stretch; /* Make label and content same height */
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background: #fff;
-    overflow: hidden;
-}
+        <div id="scoreboardScreen" class="screen">
+            <h2>🏆 Leaderboard</h2>
+            <div style="overflow-x:auto;">
+                <table class="scoreboard-table">
+                    <thead><tr><th>Date</th><th>Name</th><th>Score</th></tr></thead>
+                    <tbody id="scoreboardBody"></tbody>
+                </table>
+            </div>
+            <div class="nav-buttons">
+                <button id="backFromScoreboard">← Back</button>
+            </div>
+        </div>
 
-.option-card:hover {
-    border-color: var(--primary);
-    background: #f8fafc;
-}
+        <div id="quitModal" class="modal">
+            <div class="modal-content">
+                <h3>Quit Quiz?</h3>
+                <div style="margin-top:15px; display:flex; gap:10px; justify-content:center;">
+                    <button id="confirmQuit" style="background:var(--error); color:white;">Yes</button>
+                    <button id="cancelQuit" style="background:#cbd5e1; color:black;">No</button>
+                </div>
+            </div>
+        </div>
 
-/* 1. Static Label (A, B, C, D) */
-.option-label {
-    background: #f1f5f9;
-    color: var(--text-muted);
-    font-weight: 800;
-    font-size: 1.1rem;
-    width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-right: 2px solid var(--border);
-    flex-shrink: 0; /* Never shrink */
-}
+    </div>
 
-/* 2. Content Container (Holds Eng + Hin) */
-.option-content {
-    flex: 1;
-    display: flex;
-    padding: 12px 15px;
-    gap: 10px;
-}
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/quiz-engine.js"></script>
+    <script src="scripts/app.js"></script>
 
-/* 3. Language Text Styling */
-.option-en {
-    font-size: 1rem;
-    color: var(--text-main);
-    font-weight: 500;
-}
-
-.option-hi {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-}
-
-/* --- RESPONSIVE LOGIC (PC vs Mobile) --- */
-
-/* MOBILE DEFAULT (Up-Down Layout) */
-.option-content {
-    flex-direction: column; /* English Top, Hindi Bottom */
-    text-align: left;
-}
-.option-hi {
-    border-top: 1px dashed var(--border);
-    padding-top: 5px;
-}
-
-/* PC / TABLET MODE (Left-Right Layout) */
-@media (min-width: 768px) {
-    .option-content {
-        flex-direction: row; /* Side by side */
-        align-items: center;
-    }
-    
-    .option-en {
-        flex: 1; /* Take 50% width */
-        border-right: 1px solid var(--border);
-        padding-right: 15px;
-    }
-    
-    .option-hi {
-        flex: 1; /* Take 50% width */
-        border-top: none;
-        padding-top: 0;
-        padding-left: 10px;
-    }
-}
-
-/* --- FEEDBACK STATES (Correct/Wrong) --- */
-.option-card.correct {
-    border-color: var(--success);
-    background-color: #f0fdf4;
-}
-.option-card.correct .option-label {
-    background-color: var(--success);
-    color: white;
-    border-right-color: var(--success);
-}
-
-.option-card.wrong {
-    border-color: var(--error);
-    background-color: #fef2f2;
-    animation: shake 0.4s ease;
-}
-.option-card.wrong .option-label {
-    background-color: var(--error);
-    color: white;
-    border-right-color: var(--error);
-}
-
-/* --- ANIMATIONS --- */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* --- FEEDBACK AREAS (Explanation/Hint) --- */
-.feedback-area {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background: #fff;
-    border-left: 5px solid;
-    animation: slideDown 0.3s ease-out;
-}
-
-.explanation-area {
-    border-color: var(--success);
-    background: #f0fdf4;
-}
-
-.hint-area {
-    border-color: #fbbf24; /* Amber */
-    background: #fffbeb;
-}
-
-.feedback-area h4 {
-    margin: 0 0 10px 0;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* --- NAVIGATION BUTTONS --- */
-.nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    gap: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.1s;
-}
-
-button:active { transform: scale(0.98); }
-
-#nextBtn { background: var(--primary); color: white; }
-#prevBtn { background: #cbd5e1; color: var(--text-main); }
-#hintBtn { background: #fbbf24; color: #78350f; }
-
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* --- HIDE SCREENS --- */
-.screen { display: none; }
-.screen.active { display: block; }
+</body>
+</html>
