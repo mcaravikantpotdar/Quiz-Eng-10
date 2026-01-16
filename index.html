@@ -3,109 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeTutor - Student Learning App</title>
+    <title>CodeTutor - Student Assessment Portal</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <div id="uploadScreen" class="screen active">
-            <header class="app-header">
-                <div class="logo">🎓 CodeTutor</div>
-                <button id="viewScoreboardBtn" class="secondary-btn">🏆 Scoreboard</button>
-            </header>
+    <div id="uploadScreen" class="screen active">
+        <div class="upload-card">
+            <div class="upload-icon">🎓</div>
+            <h1>CodeTutor</h1>
+            <p style="color: #64748b; margin-bottom: 25px;">Enter your details to unlock the chapters.</p>
             
-            <div class="card main-card">
-                <div class="input-section">
-                    <input type="text" id="studentName" placeholder="Student Name" autocomplete="off" />
-                    <input type="text" id="schoolName" placeholder="School Name" autocomplete="off" />
-                </div>
-                
-                <div class="mode-toggle">
-                    <label class="toggle-option">
-                        <input type="radio" name="quizMode" value="practice" checked> 
-                        <span>🛡️ Practice</span>
-                    </label>
-                    <label class="toggle-option">
-                        <input type="radio" name="quizMode" value="test"> 
-                        <span>⚔️ Test</span>
-                    </label>
-                </div>
-
-                <h3 class="section-label">Select Your Lesson:</h3>
-                <div id="quizList" class="chapter-list">
-                    </div>
-
-                <div class="footer-actions">
-                    <button id="startQuiz" class="primary-btn" disabled>Start Learning ▶</button>
-                    <button id="demoModeBtn" class="icon-btn">🛠️</button>
-                </div>
+            <div class="input-section">
+                <input type="text" id="studentName" class="file-input" placeholder="Enter Your Name">
+                <input type="text" id="schoolName" class="file-input" placeholder="Enter School Name">
             </div>
-            <div id="errorMessage" class="error-msg"></div>
-        </div>
 
-        <div id="quizScreen" class="screen">
-            <header class="quiz-header">
-                <div id="chapterTitle" class="chapter-name">Lesson</div>
-                <div class="quiz-stats">
-                    <div class="stat">⏰ <span id="timer">0</span>s</div>
-                    <div class="stat">⭐ <span id="currentScore">0</span></div>
-                </div>
-            </header>
-
-            <div id="questionGrid" class="q-grid"></div>
-
-            <div class="card quiz-card">
-                <div class="q-count">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">0</span></div>
-                
-                <div class="question-box">
-                    <div id="questionEn" class="text-en"></div>
-                    <div id="questionHi" class="text-hi"></div>
-                </div>
-
-                <div id="optionsContainer" class="options-stack">
+            <div class="quiz-library">
+                <h3>📂 Select a Chapter:</h3>
+                <div id="quizList" class="quiz-list">
                     </div>
             </div>
 
-            <div class="navigation">
-                <button id="prevBtn" class="nav-btn">← Back</button>
-                <button id="hintBtn" class="hint-btn">💡 Hint</button>
-                <button id="nextBtn" class="primary-btn">Next →</button>
+            <div class="mode-section">
+                <p class="section-label">Select Mode:</p>
+                <div class="mode-grid">
+                    <label class="mode-card">
+                        <input type="radio" name="quizMode" value="practice" checked>
+                        <div class="card-content">
+                            <div class="mode-title">Practice Mode</div>
+                            <div class="tag">99s Timer</div>
+                        </div>
+                    </label>
+                    <label class="mode-card">
+                        <input type="radio" name="quizMode" value="test">
+                        <div class="card-content">
+                            <div class="mode-title">Test Mode</div>
+                            <div class="tag strict">40s Timer</div>
+                        </div>
+                    </label>
+                </div>
             </div>
+
+            <div id="errorMessage" class="error-message"></div>
             
-            <button id="quitBtn" class="text-link-btn">Quit Lesson</button>
-        </div>
-
-        <div id="resultsScreen" class="screen">
-            <div class="card result-card">
-                <h2>Lesson Complete!</h2>
-                <div class="score-display">
-                    <span id="finalScore">0</span> / <span id="totalPossible">0</span>
-                </div>
-                <div id="percentage" class="percent">0%</div>
-                <div class="time-stat">Time Taken: <span id="totalTime">0m</span></div>
-                
-                <div id="resultsBreakdown" class="result-scroll"></div>
-
-                <div class="button-group">
-                    <button id="retakeBtn" class="primary-btn">Try Again</button>
-                    <button id="homeBtn" class="secondary-btn">Home</button>
-                </div>
+            <div class="action-buttons">
+                <button id="startQuiz" class="btn-primary" disabled>Start Learning ▶</button>
+                <button id="viewScoreboardBtn" class="btn-secondary">🏆 Scoreboard</button>
             </div>
         </div>
+    </div>
 
-        <div id="quitModal" class="modal-overlay">
-            <div class="modal-box">
-                <h3>Quit Lesson?</h3>
-                <p>Your progress will be lost.</p>
-                <div class="modal-buttons">
-                    <button id="confirmQuit" class="danger-btn">Yes, Quit</button>
-                    <button id="cancelQuit" class="cancel-btn">Stay</button>
-                </div>
+    <div id="quizScreen" class="screen">
+        <div class="quiz-header">
+            <h2 id="chapterTitle" class="chapter-title">Loading...</h2>
+            <div class="quiz-stats-row">
+                <div class="stat-badge">⏰ <span id="timer">99</span>s</div>
+                <div class="stat-badge score-badge">⭐ <span id="currentScore">0</span>/<span id="maxScore">0</span></div>
+                <button id="quitBtn" class="btn-icon">🏁 Quit</button>
             </div>
         </div>
+        <div class="question-grid" id="questionGrid"></div>
+        <div class="question-area">
+            <div class="question-text">
+                <div id="questionEn" class="question-en"></div>
+                <div id="questionHi" class="question-hi"></div>
+            </div>
+            <div class="options-container" id="optionsContainer"></div>
+            <div class="quiz-controls">
+                <button id="prevBtn" class="btn-secondary">← Previous</button>
+                <button id="hintBtn" class="btn-icon">💡 Hint</button>
+                <button id="nextBtn" class="btn-primary">Next →</button>
+            </div>
+        </div>
+    </div>
 
+    <div id="resultsScreen" class="screen">
+        <div class="results-container">
+            <div class="results-header">
+                <h1>Quiz Results</h1>
+                <div class="results-summary">
+                    <div>Score: <span id="finalScore">0</span>/<span id="totalPossible">0</span></div>
+                    <div><span id="percentage">0</span>%</div>
+                </div>
+            </div>
+            <div class="results-breakdown" id="resultsBreakdown"></div>
+            <button id="homeBtn" class="btn-primary" style="margin: 20px auto; display: block;">Back to Home</button>
+        </div>
+    </div>
+
+    <div id="quitModal" class="modal">
+        <div class="modal-content">
+            <h3>Quit Quiz?</h3>
+            <div class="modal-actions">
+                <button id="confirmQuit" class="btn-danger">Yes, Quit</button>
+                <button id="cancelQuit" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <script src="scripts/utils.js"></script>
