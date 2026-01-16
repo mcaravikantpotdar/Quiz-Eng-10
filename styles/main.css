@@ -1,64 +1,54 @@
-/* styles/main.css */
-
-/* --- 1. GLOBAL VARIABLES & RESET --- */
+/* --- ROOT VARIABLES --- */
 :root {
-    --primary: #2563eb;       /* Blue */
-    --success: #22c55e;       /* Green */
-    --error: #ef4444;         /* Red */
-    --background: #f8fafc;    /* Light Gray */
-    --card-bg: #ffffff;       /* White */
-    --text-main: #1e293b;     /* Dark Slate */
-    --text-muted: #64748b;    /* Gray */
-    --border: #e2e8f0;        /* Light Border */
-    --code-bg: #1e293b;       /* Dark Code BG */
-    --code-text: #e2e8f0;     /* Light Code Text */
+    --primary: #2563eb;
+    --success: #22c55e;
+    --error: #ef4444;
+    --bg-light: #f8fafc;
+    --card-bg: #ffffff;
+    --text-dark: #1e293b;
+    --text-gray: #64748b;
+    --border: #e2e8f0;
+    --code-bg: #1e293b;
 }
 
 * { box-sizing: border-box; }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--background);
-    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f1f5f9;
     margin: 0;
     padding: 20px;
-    line-height: 1.6;
+    color: var(--text-dark);
 }
 
-/* --- 2. MAIN CONTAINER --- */
+/* --- CONTAINER --- */
 .quiz-container {
-    max-width: 850px;
+    max-width: 800px;
     margin: 0 auto;
     background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    padding: 25px;
-    min-height: 400px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
-/* --- 3. HEADER --- */
+/* --- SCREENS --- */
+.screen { display: none; } /* Meticulous Fix: Hide all screens by default */
+.screen.active { display: block; }
+
+/* --- START SCREEN / LOGIN --- */
 .quiz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 2px solid var(--border);
     padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-.quiz-header h1 { margin: 0; color: var(--primary); font-size: 1.5rem; }
-
-/* --- 4. START SCREEN / LOGIN PANEL (The part that looks broken in your screenshot) --- */
-.login-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    margin-bottom: 25px;
 }
 
 .input-group {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
-.input-group input {
+
+input[type="text"] {
     flex: 1;
     padding: 12px;
     border: 2px solid var(--border);
@@ -70,117 +60,110 @@ body {
     background: #f1f5f9;
     padding: 15px;
     border-radius: 8px;
-    display: flex;
-    gap: 20px;
+    margin-bottom: 20px;
     font-weight: 600;
 }
 
-/* The Chapter List Box */
+/* Chapter List Styles (Meticulous Fix for your screenshot) */
 .quiz-list {
-    max-height: 300px;
+    max-height: 350px;
     overflow-y: auto;
     border: 2px solid var(--border);
     border-radius: 8px;
-    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
-/* The Individual Chapter Buttons */
 .quiz-btn {
-    padding: 12px 15px;
+    padding: 15px;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
     transition: background 0.2s;
     font-weight: 500;
 }
-.quiz-btn:hover { background-color: #f1f5f9; }
+.quiz-btn:hover { background: #f1f5f9; }
 .quiz-btn.selected {
-    background-color: var(--primary);
+    background: var(--primary);
     color: white;
 }
 
-/* --- 5. QUIZ SCREEN & QUESTIONS --- */
-.stats-bar { display: flex; gap: 15px; font-weight: bold; color: var(--text-muted); }
-
-.question-area { margin-bottom: 20px; }
-.q-badge {
-    background: #e0f2fe; color: #0369a1;
-    padding: 4px 10px; border-radius: 4px;
-    font-size: 0.8rem; font-weight: bold;
-    display: inline-block; margin-bottom: 10px;
+/* --- OPTION BUTTONS (ABCD) --- */
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
 }
-.question-text { font-size: 1.15rem; font-weight: 600; }
-
-/* Code Blocks (VS Code Style) */
-pre {
-    background: var(--code-bg); color: var(--code-text);
-    padding: 15px; border-radius: 8px;
-    border-left: 5px solid var(--primary);
-    overflow-x: auto; font-family: 'Consolas', monospace;
-}
-
-/* --- 6. OPTIONS (A, B, C, D) --- */
-.options-grid { display: flex; flex-direction: column; gap: 10px; }
 
 .option-card {
-    display: flex; border: 2px solid var(--border);
-    border-radius: 8px; cursor: pointer;
-    background: white; overflow: hidden;
-    transition: all 0.2s;
+    display: flex;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    background: white;
 }
-.option-card:hover { border-color: var(--primary); background: #f8fafc; }
 
 .option-label {
-    width: 50px; background: #e2e8f0;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: bold; font-size: 1.2rem;
-    flex-shrink: 0;
+    width: 50px;
+    background: #f1f5f9;
+    color: var(--text-gray);
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid var(--border);
 }
 
 .option-content {
-    flex: 1; padding: 10px 15px;
-    display: flex; flex-direction: column; gap: 4px;
+    flex: 1;
+    display: flex;
+    padding: 12px 15px;
 }
-/* Desktop Layout for Options */
-@media (min-width: 600px) {
-    .option-content { flex-direction: row; align-items: center; }
+
+/* RESPONSIVE LOGIC: Mobile (Column), PC (Row) */
+.option-content { flex-direction: column; gap: 5px; } /* Mobile */
+
+@media (min-width: 768px) {
+    .option-content { 
+        flex-direction: row; 
+        align-items: center; 
+        gap: 20px; 
+    }
     .option-en { flex: 1; border-right: 1px solid var(--border); padding-right: 10px; }
     .option-hi { flex: 1; padding-left: 10px; }
 }
 
-/* Feedback Colors */
-.option-card.correct { border-color: var(--success); background: #f0fdf4; }
-.option-card.correct .option-label { background: var(--success); color: white; }
-.option-card.wrong { border-color: var(--error); background: #fef2f2; }
-.option-card.wrong .option-label { background: var(--error); color: white; }
-
-/* --- 7. BUTTONS --- */
-.nav-buttons { display: flex; justify-content: space-between; margin-top: 25px; }
-button {
-    padding: 10px 20px; border-radius: 6px; border: none;
-    font-weight: bold; cursor: pointer; font-size: 1rem;
+/* --- CODE SNIPPETS --- */
+pre {
+    background: var(--code-bg);
+    color: #e2e8f0;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Consolas', monospace;
+    line-height: 1.5;
+    margin: 15px 0;
 }
-#startQuiz, #nextBtn { background: var(--primary); color: white; }
-#prevBtn, #homeBtn { background: #cbd5e1; color: var(--text-main); }
-#hintBtn { background: #fbbf24; color: #78350f; }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* --- 8. UTILITIES --- */
-.screen { display: none; } /* This hides screens not currently in use */
-.screen.active { display: block; animation: fade 0.3s; }
-@keyframes fade { from {opacity:0;} to {opacity:1;} }
-
-/* --- 9. MODALS (The "Quit Quiz" Popup) --- */
+/* --- MODALS (Quit Popup) --- */
 .modal {
-    display: none; /* HIDDEN BY DEFAULT */
-    position: fixed; top: 0; left: 0;
+    display: none; /* Meticulous Fix: Must be hidden */
+    position: fixed;
+    top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     z-index: 1000;
-    justify-content: center; align-items: center;
+    align-items: center;
+    justify-content: center;
 }
-.modal.active { display: flex; } /* Only shows when active */
+.modal.active { display: flex; }
+
 .modal-content {
-    background: white; padding: 25px;
-    border-radius: 10px; text-align: center;
-    width: 300px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
 }
