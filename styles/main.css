@@ -1,169 +1,118 @@
-/* --- ROOT VARIABLES --- */
+/* --- DUOLINGO AESTHETIC --- */
 :root {
-    --primary: #2563eb;
-    --success: #22c55e;
-    --error: #ef4444;
-    --bg-light: #f8fafc;
-    --card-bg: #ffffff;
-    --text-dark: #1e293b;
-    --text-gray: #64748b;
-    --border: #e2e8f0;
-    --code-bg: #1e293b;
+    --green: #58cc02;
+    --blue: #1cb0f6;
+    --white: #ffffff;
+    --gray-bg: #f7f7f7;
+    --text: #4b4b4b;
+    --border: #e5e5e5;
+    --error: #ff4b4b;
 }
 
 * { box-sizing: border-box; }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f1f5f9;
-    margin: 0;
+    background-color: var(--white);
+    color: var(--text);
+    font-family: 'DIN Round', 'Segoe UI', sans-serif;
+    margin: 0; padding: 20px;
+}
+
+/* SCREEN HANDLING */
+.screen { display: none; }
+.screen.active { display: flex; flex-direction: column; align-items: center; }
+
+.app-container { width: 100%; max-width: 600px; margin: 0 auto; }
+
+/* CARD LOOK */
+.card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-bottom: 4px solid var(--border);
+    border-radius: 15px;
     padding: 20px;
-    color: var(--text-dark);
+    width: 100%;
 }
 
-/* --- CONTAINER --- */
-.quiz-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: var(--card-bg);
+/* BUTTONS */
+button {
     border-radius: 12px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-}
-
-/* --- SCREENS --- */
-.screen { display: none; } /* Meticulous Fix: Hide all screens by default */
-.screen.active { display: block; }
-
-/* --- START SCREEN / LOGIN --- */
-.quiz-header {
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 15px;
-    margin-bottom: 25px;
-}
-
-.input-group {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-input[type="text"] {
-    flex: 1;
-    padding: 12px;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
-.mode-selector {
-    background: #f1f5f9;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-/* Chapter List Styles (Meticulous Fix for your screenshot) */
-.quiz-list {
-    max-height: 350px;
-    overflow-y: auto;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.quiz-btn {
-    padding: 15px;
-    border-bottom: 1px solid var(--border);
+    border: none;
     cursor: pointer;
-    transition: background 0.2s;
-    font-weight: 500;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 12px 20px;
+    transition: filter 0.2s;
 }
-.quiz-btn:hover { background: #f1f5f9; }
-.quiz-btn.selected {
-    background: var(--primary);
+
+.primary-btn {
+    background: var(--green);
     color: white;
+    border-bottom: 4px solid #46a302;
 }
 
-/* --- OPTION BUTTONS (ABCD) --- */
-.options-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
+.secondary-btn {
+    background: var(--blue);
+    color: white;
+    border-bottom: 4px solid #1482b5;
 }
 
+/* OPTIONS (Responsive PC/Mobile) */
 .option-card {
     display: flex;
     border: 2px solid var(--border);
-    border-radius: 10px;
+    border-bottom: 4px solid var(--border);
+    border-radius: 15px;
+    margin-bottom: 10px;
     cursor: pointer;
     overflow: hidden;
-    background: white;
 }
 
 .option-label {
-    width: 50px;
-    background: #f1f5f9;
-    color: var(--text-gray);
-    font-weight: 800;
-    font-size: 1.2rem;
+    background: #f1f1f1;
+    width: 45px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    font-weight: 900;
     border-right: 2px solid var(--border);
 }
 
+/* MOBILE VIEW (Default) */
 .option-content {
     flex: 1;
+    padding: 10px 15px;
     display: flex;
-    padding: 12px 15px;
+    flex-direction: column; /* Top-Down */
 }
 
-/* RESPONSIVE LOGIC: Mobile (Column), PC (Row) */
-.option-content { flex-direction: column; gap: 5px; } /* Mobile */
-
+/* PC VIEW */
 @media (min-width: 768px) {
+    .app-container { max-width: 800px; }
     .option-content { 
-        flex-direction: row; 
+        flex-direction: row; /* Left-Right */
         align-items: center; 
-        gap: 20px; 
     }
-    .option-en { flex: 1; border-right: 1px solid var(--border); padding-right: 10px; }
-    .option-hi { flex: 1; padding-left: 10px; }
+    .text-en { flex: 1; border-right: 1px solid var(--border); padding-right: 15px; }
+    .text-hi { flex: 1; padding-left: 15px; }
 }
 
-/* --- CODE SNIPPETS --- */
+/* MODAL FIX */
+.modal-overlay {
+    display: none;
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.5); z-index:100;
+    justify-content:center; align-items:center;
+}
+.modal-overlay.active { display: flex; }
+
+/* CODE BOXES */
 pre {
-    background: var(--code-bg);
-    color: #e2e8f0;
+    background: #1e1e1e;
+    color: #dcdcdc;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow-x: auto;
-    font-family: 'Consolas', monospace;
-    line-height: 1.5;
-    margin: 15px 0;
-}
-
-/* --- MODALS (Quit Popup) --- */
-.modal {
-    display: none; /* Meticulous Fix: Must be hidden */
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-}
-.modal.active { display: flex; }
-
-.modal-content {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
+    font-family: monospace;
+    text-align: left;
 }
