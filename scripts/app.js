@@ -269,6 +269,7 @@ class QuizApp {
         if (this.hintUsed[question.question_id]) this.showFeedbackArea('hintArea');
     }
 
+    // --- REFINED RENDER OPTIONS FOR ATTEMPT HISTORY ---
     renderOptions(question) {
         const container = document.getElementById('optionsContainer');
         container.innerHTML = '';
@@ -277,7 +278,6 @@ class QuizApp {
         const isDisabled = this.quizEngine.isQuestionDisabled(question.question_id);
         const userAnswer = this.quizEngine.userAnswers[question.question_id];
         const mode = this.quizEngine.mode;
-        const attempts = this.currentAttempts[question.question_id] || 0;
         
         displayOrder.forEach((optionKey, index) => {
             const option = question.options[optionKey];
@@ -287,20 +287,26 @@ class QuizApp {
             
             if (userAnswer) {
                 if (mode === 'practice') {
-                    // Practice Mode: Show correct answer (green) ONLY if user got it right OR exhausted 3 attempts
-                    if (optionKey === question.correct_option && (userAnswer.isCorrect || attempts >= 3)) {
+                    // Logic: Keep all previously clicked options red
+                    if (userAnswer.history && userAnswer.history.includes(optionKey)) {
+                        if (optionKey === question.correct_option) {
+                            optionCard.classList.add('correct');
+                        } else {
+                            optionCard.classList.add('wrong');
+                        }
+                    } 
+                    // Reveal correct answer if question is locked (even if not clicked, e.g., after 3 attempts)
+                    else if (isDisabled && optionKey === question.correct_option) {
                         optionCard.classList.add('correct');
-                    } else if (optionKey === userAnswer.selectedOption && !userAnswer.isCorrect) {
-                        optionCard.classList.add('wrong');
                     }
                 } else {
-                    // Test Mode: Only show neutral blue border for selection, no correctness hints
+                    // Test Mode: Only show neutral blue for the current/last selection
                     if (optionKey === userAnswer.selectedOption) {
                         optionCard.classList.add('selected-only');
                     }
                 }
             } else if (isDisabled && optionKey === question.correct_option && mode === 'practice') {
-                // For timeouts in practice mode, reveal the correct answer
+                // Handle timeouts in Practice Mode
                 optionCard.classList.add('correct');
             }
             
