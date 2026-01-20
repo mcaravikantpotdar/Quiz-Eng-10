@@ -4,7 +4,7 @@ class QuizApp {
         
         // --- CONFIGURATION ---
         this.SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxt-akN_S5Dmr3HdtxpEL9by9J80kmZYCufXI1e9_fK3Ep0QYomPU-6jF-3ryPq7Q/exec";
-        this.ADMIN_PASSWORD = "Admin@2026"; // <--- YOUR MASTER PASSWORD
+        this.ADMIN_PASSWORD = "Admin@2026"; 
         
         // --- GITHUB API CONFIG ---
         this.GITHUB_CONFIG = {
@@ -36,7 +36,6 @@ class QuizApp {
         try {
             const response = await fetch(apiUrl, { cache: 'no-cache' });
             if (!response.ok) throw new Error(`GitHub API Error: ${response.statusText}`);
-            
             const files = await response.json();
 
             this.availableQuizzes = files
@@ -46,11 +45,7 @@ class QuizApp {
                         .replace('.json', '')
                         .replace(/-/g, ' ')
                         .replace(/\b\w/g, l => l.toUpperCase());
-                        
-                    return {
-                        name: `📂 ${cleanName}`,
-                        file: file.name
-                    };
+                    return { name: `📂 ${cleanName}`, file: file.name };
                 });
 
             if (this.availableQuizzes.length === 0) {
@@ -73,11 +68,9 @@ class QuizApp {
         this.btnBackScoreboard = document.getElementById('backFromScoreboard');
         this.btnDemo = document.getElementById('demoModeBtn'); 
         
-        // New Navigation Elements
+        // Navigation Elements (Top & Bottom)
         this.btnTopHome = document.getElementById('topHomeBtn');
         this.btnTopQuit = document.getElementById('topQuitBtn');
-        
-        // Original Navigation Elements
         this.btnNext = document.getElementById('nextBtn');
         this.btnPrev = document.getElementById('prevBtn');
         this.btnHint = document.getElementById('hintBtn');
@@ -115,7 +108,7 @@ class QuizApp {
             } else { QuizUtils.showScreen('uploadScreen'); }
         });
 
-        // Navigation Bindings
+        // Event Listeners for Nav
         this.btnNext.addEventListener('click', () => this.nextQuestion());
         this.btnPrev.addEventListener('click', () => this.previousQuestion());
         this.btnTopHome.addEventListener('click', () => window.location.reload());
@@ -130,7 +123,7 @@ class QuizApp {
         this.btnRetake.addEventListener('click', () => this.retakeQuiz());
         this.btnHome.addEventListener('click', () => window.location.reload());
 
-        // Admin Reset Bindings
+        // Admin Reset logic
         this.btnAdminGear.addEventListener('click', () => this.modalAdmin.classList.add('active'));
         this.btnCloseAdmin.addEventListener('click', () => {
             this.modalAdmin.classList.remove('active');
@@ -223,21 +216,17 @@ class QuizApp {
         });
     }
 
-    // --- ENHANCED SCOREBOARD WITH RANKING ---
     async fetchScoreboard() {
         const tbody = document.getElementById('scoreboardBody');
         tbody.innerHTML = '<tr><td colspan="5" style="padding:40px; text-align:center;">Analyzing performance...</td></tr>';
-        
         try {
             const response = await fetch(`${this.SCRIPT_URL}?action=get&t=${Date.now()}`);
             const rawData = await response.json();
-            
-            // Professional Sorting: 1. Score (High to Low) | 2. Time (Fast to Slow)
             const sortedData = rawData.sort((a, b) => {
                 const scoreA = parseInt(a[5].split('/')[0]);
                 const scoreB = parseInt(b[5].split('/')[0]);
                 if (scoreB !== scoreA) return scoreB - scoreA;
-                return parseFloat(a[6]) - parseFloat(b[6]); // Faster time wins tie
+                return parseFloat(a[6]) - parseFloat(b[6]);
             });
 
             tbody.innerHTML = sortedData.slice(0, 50).map((row, index) => {
@@ -245,55 +234,27 @@ class QuizApp {
                 if (index === 0) rankDisplay = '🥇';
                 if (index === 1) rankDisplay = '🥈';
                 if (index === 2) rankDisplay = '🥉';
-
                 const modeClass = row[4] === 'TEST' ? 'tag strict' : 'tag';
-
-                return `
-                    <tr>
-                        <td style="padding:15px; font-weight:bold; font-size:18px;">${rankDisplay}</td>
-                        <td style="padding:15px;">
-                            <strong>${row[1]}</strong><br>
-                            <span style="font-size:11px; opacity:0.6;">${row[2]}</span>
-                        </td>
-                        <td style="padding:15px;"><span class="${modeClass}" style="font-size:10px;">${row[4]}</span></td>
-                        <td style="padding:15px; font-weight:800; color:#2563eb;">${row[5]}</td>
-                        <td style="padding:15px; font-size:12px;">⏱️ ${row[6]}</td>
-                    </tr>
-                `;
+                return `<tr><td style="padding:15px; font-weight:bold; font-size:18px;">${rankDisplay}</td><td style="padding:15px;"><strong>${row[1]}</strong><br><span style="font-size:11px; opacity:0.6;">${row[2]}</span></td><td style="padding:15px;"><span class="${modeClass}" style="font-size:10px;">${row[4]}</span></td><td style="padding:15px; font-weight:800; color:#2563eb;">${row[5]}</td><td style="padding:15px; font-size:12px;">⏱️ ${row[6]}</td></tr>`;
             }).join('');
         } catch (e) { tbody.innerHTML = '<tr><td colspan="5" style="padding:40px; text-align:center; color:#dc2626;">Server Connection Error.</td></tr>'; }
     }
 
-    // --- ADMIN RESET LOGIC ---
     async handleDatabaseReset() {
         const input = this.inputAdminPass.value;
         this.adminError.textContent = '';
-
-        if (input !== this.ADMIN_PASSWORD) {
-            this.adminError.textContent = '❌ Incorrect Master Password';
-            return;
-        }
-
-        if (!confirm("CRITICAL WARNING: This will permanently delete ALL student records from the database. This cannot be undone. Proceed?")) return;
-
+        if (input !== this.ADMIN_PASSWORD) { this.adminError.textContent = '❌ Incorrect Master Password'; return; }
+        if (!confirm("WARNING: Permanent deletion. Proceed?")) return;
         QuizUtils.showLoading(true);
         try {
-            const response = await fetch(this.SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: JSON.stringify({ action: 'clear_all_records', password: input })
-            });
-            
-            alert("✅ Database Cleared Successfully.");
+            await fetch(this.SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: 'clear_all_records', password: input }) });
+            alert("✅ Database Cleared.");
             this.modalAdmin.classList.remove('active');
             this.inputAdminPass.value = '';
             this.fetchScoreboard();
-        } catch (e) {
-            alert("Error communicating with server.");
-        } finally { QuizUtils.showLoading(false); }
+        } catch (e) { alert("Error."); } finally { QuizUtils.showLoading(false); }
     }
 
-    // ... (Remaining Helper Methods from your provided code preserved) ...
     getShuffledOptions(q) {
         const qId = q.question_id;
         if (this.shuffledOrders[qId]) return this.shuffledOrders[qId];
@@ -375,9 +336,17 @@ class QuizApp {
 
     showFeedbackArea(id) { document.getElementById(id).style.display = 'block'; }
     updateScoreDisplay() { document.getElementById('currentScore').textContent = this.quizEngine.score; }
+
+    // --- RESTORED & ENHANCED NAVIGATION LOGIC ---
     updateNavigationButtons() {
         const qId = this.quizEngine.getCurrentQuestion().question_id;
-        document.getElementById('nextBtn').disabled = !this.quizEngine.isQuestionDisabled(qId);
+        const nextBtn = document.getElementById('nextBtn');
+        const isLastQuestion = this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1;
+
+        // Logic for Finish vs Next
+        nextBtn.textContent = isLastQuestion ? '🏁 Finish Assessment' : 'Next Question →';
+        nextBtn.disabled = !this.quizEngine.isQuestionDisabled(qId);
+        
         document.getElementById('prevBtn').disabled = this.quizEngine.currentQuestionIndex === 0;
     }
 
