@@ -167,7 +167,6 @@ class QuizApp {
         QuizUtils.showLoading(true);
         this.errorDiv.textContent = '';
         try {
-            // Cache Busting ensure latest JSON content [cite: 27]
             const response = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
             if (!response.ok) throw new Error(`Could not find chapter file: ${this.selectedQuizFile}`);
             const data = await response.json();
@@ -277,6 +276,8 @@ class QuizApp {
         const visualLabels = ['A', 'B', 'C', 'D'];
         const isDisabled = this.quizEngine.isQuestionDisabled(question.question_id);
         const userAnswer = this.quizEngine.userAnswers[question.question_id];
+        const mode = this.quizEngine.mode;
+        const attempts = this.currentAttempts[question.question_id] || 0;
         
         displayOrder.forEach((optionKey, index) => {
             const option = question.options[optionKey];
@@ -285,9 +286,21 @@ class QuizApp {
             optionCard.innerHTML = `<div class="option-label">${visualLabels[index]}</div><div class="option-content"><div class="option-en">${option.en}</div><div class="option-hi">${option.hi}</div></div>`;
             
             if (userAnswer) {
-                if (optionKey === question.correct_option) optionCard.classList.add('correct');
-                else if (optionKey === userAnswer.selectedOption && !userAnswer.isCorrect) optionCard.classList.add('wrong');
-            } else if (isDisabled && optionKey === question.correct_option) {
+                if (mode === 'practice') {
+                    // Practice Mode: Show correct answer (green) ONLY if user got it right OR exhausted 3 attempts
+                    if (optionKey === question.correct_option && (userAnswer.isCorrect || attempts >= 3)) {
+                        optionCard.classList.add('correct');
+                    } else if (optionKey === userAnswer.selectedOption && !userAnswer.isCorrect) {
+                        optionCard.classList.add('wrong');
+                    }
+                } else {
+                    // Test Mode: Only show neutral blue border for selection, no correctness hints
+                    if (optionKey === userAnswer.selectedOption) {
+                        optionCard.classList.add('selected-only');
+                    }
+                }
+            } else if (isDisabled && optionKey === question.correct_option && mode === 'practice') {
+                // For timeouts in practice mode, reveal the correct answer
                 optionCard.classList.add('correct');
             }
             
@@ -301,7 +314,7 @@ class QuizApp {
         const question = this.quizEngine.getCurrentQuestion();
         const questionId = question.question_id;
         this.currentAttempts[questionId] = (this.currentAttempts[questionId] || 0) + 1;
-        const result = this.quizEngine.recordAnswer(questionId, selectedOption, this.currentAttempts[questionId], this.hintUsed[questionId]);
+        this.quizEngine.recordAnswer(questionId, selectedOption, this.currentAttempts[questionId], this.hintUsed[questionId]);
         this.renderOptions(question);
         this.updateScoreDisplay();
         this.updateQuestionInGrid(questionId);
