@@ -36,6 +36,7 @@ class QuizApp {
         try {
             const response = await fetch(apiUrl, { cache: 'no-cache' });
             if (!response.ok) throw new Error(`GitHub API Error: ${response.statusText}`);
+            
             const files = await response.json();
 
             this.availableQuizzes = files
@@ -45,7 +46,11 @@ class QuizApp {
                         .replace('.json', '')
                         .replace(/-/g, ' ')
                         .replace(/\b\w/g, l => l.toUpperCase());
-                    return { name: `📂 ${cleanName}`, file: file.name };
+                        
+                    return {
+                        name: `📂 ${cleanName}`,
+                        file: file.name
+                    };
                 });
 
             if (this.availableQuizzes.length === 0) {
@@ -68,7 +73,6 @@ class QuizApp {
         this.btnBackScoreboard = document.getElementById('backFromScoreboard');
         this.btnDemo = document.getElementById('demoModeBtn'); 
         
-        // Navigation Elements (Top & Bottom)
         this.btnTopHome = document.getElementById('topHomeBtn');
         this.btnTopQuit = document.getElementById('topQuitBtn');
         this.btnNext = document.getElementById('nextBtn');
@@ -80,7 +84,6 @@ class QuizApp {
         this.btnRetake = document.getElementById('retakeBtn');
         this.btnHome = document.getElementById('homeBtn');
         
-        // Admin Elements
         this.btnAdminGear = document.getElementById('adminGear');
         this.modalAdmin = document.getElementById('adminModal');
         this.inputAdminPass = document.getElementById('adminPassword');
@@ -108,7 +111,6 @@ class QuizApp {
             } else { QuizUtils.showScreen('uploadScreen'); }
         });
 
-        // Event Listeners for Nav
         this.btnNext.addEventListener('click', () => this.nextQuestion());
         this.btnPrev.addEventListener('click', () => this.previousQuestion());
         this.btnTopHome.addEventListener('click', () => window.location.reload());
@@ -123,7 +125,6 @@ class QuizApp {
         this.btnRetake.addEventListener('click', () => this.retakeQuiz());
         this.btnHome.addEventListener('click', () => window.location.reload());
 
-        // Admin Reset logic
         this.btnAdminGear.addEventListener('click', () => this.modalAdmin.classList.add('active'));
         this.btnCloseAdmin.addEventListener('click', () => {
             this.modalAdmin.classList.remove('active');
@@ -271,10 +272,13 @@ class QuizApp {
     }
 
     renderQuestionGrid() {
-        const grid = document.getElementById('questionGrid'); grid.innerHTML = '';
+        const grid = document.getElementById('questionGrid'); 
+        grid.innerHTML = '';
         this.quizEngine.quizData.questions.forEach((q, i) => {
             const el = document.createElement('div');
             el.className = `question-number ${this.quizEngine.getQuestionStatus(q.question_id)}`;
+            el.dataset.index = i;
+            el.dataset.questionId = q.question_id;
             if (i === this.quizEngine.currentQuestionIndex) el.classList.add('current');
             el.innerHTML = `<div class="q-number">${i + 1}</div><div class="marks">${this.quizEngine.getQuestionMarks(q.question_id)?.display || ''}</div>`;
             el.addEventListener('click', () => this.goToQuestion(i));
@@ -297,6 +301,8 @@ class QuizApp {
             </div>
             <div id="hintArea" class="feedback-area hint-area" style="display: none;"><h4>💡 Hint</h4><div class="h-en">${q.hint.en}</div><div class="h-hi">${q.hint.hi}</div></div>
         `);
+        
+        this.updateQuestionGrid(); // Updates current highlight and marks
         this.updateNavigationButtons();
         this.startQuestionTimer(q.question_id);
         this.updateHintButton();
@@ -305,11 +311,14 @@ class QuizApp {
     }
 
     selectOption(opt) {
-        const qId = this.quizEngine.getCurrentQuestion().question_id;
+        const q = this.quizEngine.getCurrentQuestion();
+        const qId = q.question_id;
         this.currentAttempts[qId] = (this.currentAttempts[qId] || 0) + 1;
         this.quizEngine.recordAnswer(qId, opt, this.currentAttempts[qId], this.hintUsed[qId]);
+        
         this.showQuestion(this.quizEngine.currentQuestionIndex);
         this.updateScoreDisplay();
+        this.updateQuestionInGrid(qId); // Refresh marks for this question
     }
 
     startQuestionTimer(qId) {
@@ -318,6 +327,7 @@ class QuizApp {
         }, () => {
             this.quizEngine.recordTimeout(qId, this.hintUsed[qId]);
             this.showQuestion(this.quizEngine.currentQuestionIndex);
+            this.updateQuestionInGrid(qId); // Marks updated after timeout
         });
     }
 
@@ -337,17 +347,36 @@ class QuizApp {
     showFeedbackArea(id) { document.getElementById(id).style.display = 'block'; }
     updateScoreDisplay() { document.getElementById('currentScore').textContent = this.quizEngine.score; }
 
-    // --- RESTORED & ENHANCED NAVIGATION LOGIC ---
     updateNavigationButtons() {
         const qId = this.quizEngine.getCurrentQuestion().question_id;
         const nextBtn = document.getElementById('nextBtn');
         const isLastQuestion = this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1;
 
-        // Logic for Finish vs Next
         nextBtn.textContent = isLastQuestion ? '🏁 Finish Assessment' : 'Next Question →';
         nextBtn.disabled = !this.quizEngine.isQuestionDisabled(qId);
-        
         document.getElementById('prevBtn').disabled = this.quizEngine.currentQuestionIndex === 0;
+    }
+
+    // --- GRID DYNAMIC UPDATE HELPERS ---
+    updateQuestionInGrid(questionId) {
+        const el = document.querySelector(`.question-number[data-question-id="${questionId}"]`);
+        if (!el) return;
+        
+        const status = this.quizEngine.getQuestionStatus(questionId);
+        const isCurrent = parseInt(el.dataset.index) === this.quizEngine.currentQuestionIndex;
+        
+        el.className = `question-number ${status} ${isCurrent ? 'current' : ''}`;
+        
+        const marksEl = el.querySelector('.marks');
+        if (marksEl) {
+            const marksData = this.quizEngine.getQuestionMarks(questionId);
+            marksEl.textContent = marksData ? marksData.display : '';
+        }
+    }
+
+    updateQuestionGrid() {
+        if (!this.quizEngine.quizData) return;
+        this.quizEngine.quizData.questions.forEach(q => this.updateQuestionInGrid(q.question_id));
     }
 
     previousQuestion() { this.quizEngine.clearTimer(); this.showQuestion(this.quizEngine.currentQuestionIndex - 1); }
@@ -355,6 +384,7 @@ class QuizApp {
     goToQuestion(i) { this.quizEngine.clearTimer(); this.showQuestion(i); }
     quitQuiz() { this.quizEngine.clearTimer(); this.completeQuiz(); }
     completeQuiz() { QuizUtils.createConfetti(); const res = this.quizEngine.getResults(); document.getElementById('finalScore').textContent = res.totalScore; document.getElementById('totalPossible').textContent = res.maxScore; document.getElementById('percentage').textContent = res.percentage; document.getElementById('totalTime').textContent = res.timeTaken; this.renderResultsBreakdown(res); QuizUtils.showScreen('resultsScreen'); this.submitScore(res); }
+    
     renderResultsBreakdown(res) {
         const container = document.getElementById('resultsBreakdown'); container.innerHTML = '';
         res.questions.forEach((q, i) => {
