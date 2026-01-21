@@ -225,7 +225,7 @@ class QuizApp {
         });
     }
 
-    // --- ENHANCED 7-COLUMN SCOREBOARD & SORTING ---
+    // --- ENHANCED 7-COLUMN SCOREBOARD & DYNAMIC SORTING ---
     async fetchScoreboard() {
         const tbody = document.getElementById('scoreboardBody');
         tbody.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center;">Fetching database...</td></tr>';
@@ -241,6 +241,15 @@ class QuizApp {
         if (this.sortConfig.key === key) this.sortConfig.asc = !this.sortConfig.asc;
         else { this.sortConfig.key = key; this.sortConfig.asc = (key === 'student' || key === 'chapter'); }
 
+        // Update Sort Indicators in UI
+        const headers = document.querySelectorAll('#leaderboardHeaders th');
+        headers.forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+        
+        const activeHeader = document.querySelector(`#leaderboardHeaders th[data-sort="${key}"]`);
+        if (activeHeader) {
+            activeHeader.classList.add(this.sortConfig.asc ? 'sort-asc' : 'sort-desc');
+        }
+
         const data = [...this.scoreboardData];
         const asc = this.sortConfig.asc;
 
@@ -255,7 +264,7 @@ class QuizApp {
                 case 'efficiency': valA = parseFloat(a[6]); valB = parseFloat(b[6]); break;
                 default: // Default: Rank (Score then Time)
                     valA = parseInt(a[5].split('/')[0]); valB = parseInt(b[5].split('/')[0]);
-                    if (valA === valB) { valA = parseFloat(b[6]); valB = parseFloat(a[6]); } // Faster is better
+                    if (valA === valB) { valA = parseFloat(b[6]); valB = parseFloat(a[6]); } 
                     return valB - valA; 
             }
             if (valA < valB) return asc ? -1 : 1;
