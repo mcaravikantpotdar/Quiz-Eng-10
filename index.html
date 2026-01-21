@@ -89,16 +89,18 @@
                 <div style="overflow-x: auto;">
                     <table class="scoreboard-table">
                         <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Student / छात्र</th>
-                                <th>Mode</th>
-                                <th>Score</th>
-                                <th>Efficiency</th>
+                            <tr id="leaderboardHeaders">
+                                <th data-sort="rank" style="cursor:pointer;">Rank ↕</th>
+                                <th data-sort="date" style="cursor:pointer;">Date / समय ↕</th>
+                                <th data-sort="student" style="cursor:pointer;">Student / छात्र ↕</th>
+                                <th data-sort="chapter" style="cursor:pointer;">Chapter / अध्याय ↕</th>
+                                <th data-sort="mode" style="cursor:pointer;">Mode ↕</th>
+                                <th data-sort="score" style="cursor:pointer;">Score ↕</th>
+                                <th data-sort="efficiency" style="cursor:pointer;">Efficiency ↕</th>
                             </tr>
                         </thead>
                         <tbody id="scoreboardBody">
-                            <tr><td colspan="5" style="padding:40px; text-align:center; color: #64748b;">Syncing scores...</td></tr>
+                            <tr><td colspan="7" style="padding:40px; text-align:center; color: #64748b;">Syncing scores...</td></tr>
                         </tbody>
                     </table>
                 </div>
