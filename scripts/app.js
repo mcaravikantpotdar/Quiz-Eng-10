@@ -19,6 +19,10 @@ class QuizApp {
         this.shuffledOrders = {}; 
         this.selectedQuizFile = null;
         this.availableQuizzes = []; 
+        
+        // Leaderboard State
+        this.scoreboardData = [];
+        this.sortConfig = { key: 'rank', asc: false };
 
         this.init();
     }
@@ -36,7 +40,6 @@ class QuizApp {
         try {
             const response = await fetch(apiUrl, { cache: 'no-cache' });
             if (!response.ok) throw new Error(`GitHub API Error: ${response.statusText}`);
-            
             const files = await response.json();
 
             this.availableQuizzes = files
@@ -46,11 +49,7 @@ class QuizApp {
                         .replace('.json', '')
                         .replace(/-/g, ' ')
                         .replace(/\b\w/g, l => l.toUpperCase());
-                        
-                    return {
-                        name: `📂 ${cleanName}`,
-                        file: file.name
-                    };
+                    return { name: `📂 ${cleanName}`, file: file.name };
                 });
 
             if (this.availableQuizzes.length === 0) {
@@ -110,6 +109,15 @@ class QuizApp {
                  QuizUtils.showScreen('resultsScreen');
             } else { QuizUtils.showScreen('uploadScreen'); }
         });
+
+        // Header Sorting Events
+        const headerRow = document.getElementById('leaderboardHeaders');
+        if (headerRow) {
+            headerRow.addEventListener('click', (e) => {
+                const th = e.target.closest('th');
+                if (th && th.dataset.sort) this.sortScoreboard(th.dataset.sort);
+            });
+        }
 
         this.btnNext.addEventListener('click', () => this.nextQuestion());
         this.btnPrev.addEventListener('click', () => this.previousQuestion());
@@ -217,28 +225,73 @@ class QuizApp {
         });
     }
 
+    // --- ENHANCED 7-COLUMN SCOREBOARD & SORTING ---
     async fetchScoreboard() {
         const tbody = document.getElementById('scoreboardBody');
-        tbody.innerHTML = '<tr><td colspan="5" style="padding:40px; text-align:center;">Analyzing performance...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center;">Fetching database...</td></tr>';
         try {
             const response = await fetch(`${this.SCRIPT_URL}?action=get&t=${Date.now()}`);
-            const rawData = await response.json();
-            const sortedData = rawData.sort((a, b) => {
-                const scoreA = parseInt(a[5].split('/')[0]);
-                const scoreB = parseInt(b[5].split('/')[0]);
-                if (scoreB !== scoreA) return scoreB - scoreA;
-                return parseFloat(a[6]) - parseFloat(b[6]);
-            });
+            this.scoreboardData = await response.json();
+            this.sortScoreboard('rank'); // Default sort
+        } catch (e) { tbody.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center; color:#dc2626;">Server Connection Error.</td></tr>'; }
+    }
 
-            tbody.innerHTML = sortedData.slice(0, 50).map((row, index) => {
-                let rankDisplay = index + 1;
-                if (index === 0) rankDisplay = '🥇';
-                if (index === 1) rankDisplay = '🥈';
-                if (index === 2) rankDisplay = '🥉';
-                const modeClass = row[4] === 'TEST' ? 'tag strict' : 'tag';
-                return `<tr><td style="padding:15px; font-weight:bold; font-size:18px;">${rankDisplay}</td><td style="padding:15px;"><strong>${row[1]}</strong><br><span style="font-size:11px; opacity:0.6;">${row[2]}</span></td><td style="padding:15px;"><span class="${modeClass}" style="font-size:10px;">${row[4]}</span></td><td style="padding:15px; font-weight:800; color:#2563eb;">${row[5]}</td><td style="padding:15px; font-size:12px;">⏱️ ${row[6]}</td></tr>`;
-            }).join('');
-        } catch (e) { tbody.innerHTML = '<tr><td colspan="5" style="padding:40px; text-align:center; color:#dc2626;">Server Connection Error.</td></tr>'; }
+    sortScoreboard(key) {
+        // Toggle direction if same key clicked
+        if (this.sortConfig.key === key) this.sortConfig.asc = !this.sortConfig.asc;
+        else { this.sortConfig.key = key; this.sortConfig.asc = (key === 'student' || key === 'chapter'); }
+
+        const data = [...this.scoreboardData];
+        const asc = this.sortConfig.asc;
+
+        data.sort((a, b) => {
+            let valA, valB;
+            switch(key) {
+                case 'date': valA = new Date(a[0]); valB = new Date(b[0]); break;
+                case 'student': valA = a[1].toLowerCase(); valB = b[1].toLowerCase(); break;
+                case 'chapter': valA = a[3].toLowerCase(); valB = b[3].toLowerCase(); break;
+                case 'mode': valA = a[4].toLowerCase(); valB = b[4].toLowerCase(); break;
+                case 'score': valA = parseInt(a[5].split('/')[0]); valB = parseInt(b[5].split('/')[0]); break;
+                case 'efficiency': valA = parseFloat(a[6]); valB = parseFloat(b[6]); break;
+                default: // Default: Rank (Score then Time)
+                    valA = parseInt(a[5].split('/')[0]); valB = parseInt(b[5].split('/')[0]);
+                    if (valA === valB) { valA = parseFloat(b[6]); valB = parseFloat(a[6]); } // Faster is better
+                    return valB - valA; 
+            }
+            if (valA < valB) return asc ? -1 : 1;
+            if (valA > valB) return asc ? 1 : -1;
+            return 0;
+        });
+
+        this.renderScoreboard(data);
+    }
+
+    renderScoreboard(data) {
+        const tbody = document.getElementById('scoreboardBody');
+        tbody.innerHTML = data.slice(0, 50).map((row, index) => {
+            let rankIcon = index + 1;
+            if (index === 0) rankIcon = '🥇';
+            if (index === 1) rankIcon = '🥈';
+            if (index === 2) rankIcon = '🥉';
+
+            const dateStr = row[0] ? new Date(row[0]).toLocaleDateString('en-IN', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) : '-';
+            const modeClass = row[4] === 'TEST' ? 'tag strict' : 'tag';
+
+            return `
+                <tr>
+                    <td style="padding:15px; font-weight:bold; font-size:16px;">${rankIcon}</td>
+                    <td style="padding:15px; font-size:12px; color:#64748b;">${dateStr}</td>
+                    <td style="padding:15px;">
+                        <strong>${row[1]}</strong><br>
+                        <span style="font-size:11px; opacity:0.6;">${row[2]}</span>
+                    </td>
+                    <td style="padding:15px; font-size:13px; font-weight:500;">${row[3]}</td>
+                    <td style="padding:15px;"><span class="${modeClass}" style="font-size:10px;">${row[4]}</span></td>
+                    <td style="padding:15px; font-weight:800; color:#2563eb;">${row[5]}</td>
+                    <td style="padding:15px; font-size:12px;">⏱️ ${row[6]}</td>
+                </tr>
+            `;
+        }).join('');
     }
 
     async handleDatabaseReset() {
@@ -302,7 +355,7 @@ class QuizApp {
             <div id="hintArea" class="feedback-area hint-area" style="display: none;"><h4>💡 Hint</h4><div class="h-en">${q.hint.en}</div><div class="h-hi">${q.hint.hi}</div></div>
         `);
         
-        this.updateQuestionGrid(); // Updates current highlight and marks
+        this.updateQuestionGrid(); 
         this.updateNavigationButtons();
         this.startQuestionTimer(q.question_id);
         this.updateHintButton();
@@ -311,14 +364,12 @@ class QuizApp {
     }
 
     selectOption(opt) {
-        const q = this.quizEngine.getCurrentQuestion();
-        const qId = q.question_id;
+        const qId = this.quizEngine.getCurrentQuestion().question_id;
         this.currentAttempts[qId] = (this.currentAttempts[qId] || 0) + 1;
         this.quizEngine.recordAnswer(qId, opt, this.currentAttempts[qId], this.hintUsed[qId]);
-        
         this.showQuestion(this.quizEngine.currentQuestionIndex);
         this.updateScoreDisplay();
-        this.updateQuestionInGrid(qId); // Refresh marks for this question
+        this.updateQuestionInGrid(qId);
     }
 
     startQuestionTimer(qId) {
@@ -327,7 +378,7 @@ class QuizApp {
         }, () => {
             this.quizEngine.recordTimeout(qId, this.hintUsed[qId]);
             this.showQuestion(this.quizEngine.currentQuestionIndex);
-            this.updateQuestionInGrid(qId); // Marks updated after timeout
+            this.updateQuestionInGrid(qId);
         });
     }
 
@@ -357,16 +408,12 @@ class QuizApp {
         document.getElementById('prevBtn').disabled = this.quizEngine.currentQuestionIndex === 0;
     }
 
-    // --- GRID DYNAMIC UPDATE HELPERS ---
     updateQuestionInGrid(questionId) {
         const el = document.querySelector(`.question-number[data-question-id="${questionId}"]`);
         if (!el) return;
-        
         const status = this.quizEngine.getQuestionStatus(questionId);
         const isCurrent = parseInt(el.dataset.index) === this.quizEngine.currentQuestionIndex;
-        
         el.className = `question-number ${status} ${isCurrent ? 'current' : ''}`;
-        
         const marksEl = el.querySelector('.marks');
         if (marksEl) {
             const marksData = this.quizEngine.getQuestionMarks(questionId);
@@ -383,7 +430,18 @@ class QuizApp {
     nextQuestion() { if (this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1) this.completeQuiz(); else { this.quizEngine.clearTimer(); this.showQuestion(this.quizEngine.currentQuestionIndex + 1); } }
     goToQuestion(i) { this.quizEngine.clearTimer(); this.showQuestion(i); }
     quitQuiz() { this.quizEngine.clearTimer(); this.completeQuiz(); }
-    completeQuiz() { QuizUtils.createConfetti(); const res = this.quizEngine.getResults(); document.getElementById('finalScore').textContent = res.totalScore; document.getElementById('totalPossible').textContent = res.maxScore; document.getElementById('percentage').textContent = res.percentage; document.getElementById('totalTime').textContent = res.timeTaken; this.renderResultsBreakdown(res); QuizUtils.showScreen('resultsScreen'); this.submitScore(res); }
+    completeQuiz() { 
+        this.quizEngine.clearTimer();
+        QuizUtils.createConfetti(); 
+        const res = this.quizEngine.getResults(); 
+        document.getElementById('finalScore').textContent = res.totalScore; 
+        document.getElementById('totalPossible').textContent = res.maxScore; 
+        document.getElementById('percentage').textContent = res.percentage; 
+        document.getElementById('totalTime').textContent = res.timeTaken; 
+        this.renderResultsBreakdown(res); 
+        QuizUtils.showScreen('resultsScreen'); 
+        this.submitScore(res); 
+    }
     
     renderResultsBreakdown(res) {
         const container = document.getElementById('resultsBreakdown'); container.innerHTML = '';
