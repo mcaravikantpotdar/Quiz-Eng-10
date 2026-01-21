@@ -1,6 +1,6 @@
 /* =========================================
-   1. GLOBAL RESET & BASICS
-   ========================================= */
+    1. GLOBAL RESET & BASICS
+    ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -16,8 +16,8 @@ body {
 }
 
 /* =========================================
-   2. SCREEN MANAGEMENT
-   ========================================= */
+    2. SCREEN MANAGEMENT
+    ========================================= */
 .screen {
     display: none;
     padding: 20px;
@@ -36,8 +36,8 @@ body {
 }
 
 /* =========================================
-   3. HOME SCREEN & INPUTS
-   ========================================= */
+    3. HOME SCREEN & INPUTS
+    ========================================= */
 .upload-card {
     background: white;
     padding: 40px;
@@ -111,8 +111,8 @@ body {
 }
 
 /* =========================================
-   4. MODE SELECTION CARDS
-   ========================================= */
+    4. MODE SELECTION CARDS
+    ========================================= */
 .mode-section { text-align: left; margin-bottom: 30px; }
 .section-label { font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
 
@@ -147,8 +147,8 @@ body {
 .mode-card input:checked + .card-content .check-mark { display: flex; }
 
 /* =========================================
-   5. QUIZ HEADER (DUAL NAVIGATION SYNC)
-   ========================================= */
+    5. QUIZ HEADER (DUAL NAVIGATION SYNC)
+    ========================================= */
 .quiz-header {
     background: white;
     padding: 15px 20px;
@@ -187,8 +187,8 @@ body {
 @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
 /* =========================================
-   6. QUESTION GRID & DYNAMIC MARKS
-   ========================================= */
+    6. QUESTION GRID & DYNAMIC MARKS
+    ========================================= */
 .question-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
@@ -201,7 +201,7 @@ body {
 }
 
 .question-number {
-    position: relative; /* Base for positioned marks */
+    position: relative;
     height: 54px;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -233,8 +233,8 @@ body {
 .question-number.wrong .marks { color: #b91c1c; }
 
 /* =========================================
-   7. QUESTION & OPTIONS AREA
-   ========================================= */
+    7. QUESTION & OPTIONS AREA
+    ========================================= */
 .question-area { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
 .question-text { margin-bottom: 25px; }
 .question-en { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
@@ -262,7 +262,6 @@ body {
 /* Controls */
 .quiz-controls { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
 
-/* REFINED: Boring buttons are now Pro */
 .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .btn-primary:hover:not(:disabled) { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
@@ -273,15 +272,41 @@ body {
 .btn-icon { background: white; border: 1px solid #e2e8f0; color: #475569; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
 .btn-icon:hover { background: #f8fafc; border-color: #3b82f6; color: #2563eb; }
 
-/* NEW: Safety classes for the Top Navigation Quit */
 .btn-danger-text { color: #dc2626 !important; border-color: #fecaca !important; }
 .btn-danger-text:hover { background: #fef2f2 !important; }
 
 /* =========================================
-   8. LEADERBOARD & RESULTS
-   ========================================= */
+    8. LEADERBOARD (UPDATED WITH SORTING)
+    ========================================= */
 .scoreboard-table { width: 100%; border-collapse: collapse; text-align: left; }
-.scoreboard-table th { padding: 15px; background: #f8fafc; color: #475569; font-weight: 700; font-size: 12px; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+
+.scoreboard-table th { 
+    padding: 15px; 
+    background: #f8fafc; 
+    color: #475569; 
+    font-weight: 700; 
+    font-size: 12px; 
+    text-transform: uppercase; 
+    border-bottom: 2px solid #e2e8f0;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+/* Styles for Clickable Headers */
+.scoreboard-table th[data-sort] {
+    cursor: pointer;
+    position: relative;
+}
+
+.scoreboard-table th[data-sort]:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+/* Sort Indicator Classes (to be applied by JS) */
+.sort-asc::after { content: " ↑"; color: #2563eb; font-size: 14px; }
+.sort-desc::after { content: " ↓"; color: #2563eb; font-size: 14px; }
+
 .scoreboard-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: middle; }
 
 /* Admin Gear Style */
@@ -300,8 +325,8 @@ body {
 .results-breakdown { padding: 30px; background: #f8fafc; }
 
 /* =========================================
-   9. MODALS & UTILS
-   ========================================= */
+    9. MODALS & UTILS
+    ========================================= */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
 .modal.active { display: flex; }
 .modal-content { background: white; padding: 30px; border-radius: 16px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
@@ -311,8 +336,8 @@ body {
 @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
 /* =========================================
-   10. MOBILE & RESPONSIVE
-   ========================================= */
+    10. MOBILE & RESPONSIVE
+    ========================================= */
 @media (max-width: 768px) {
     .mode-grid { grid-template-columns: 1fr; }
     .option-card { grid-template-columns: 1fr; gap: 5px; }
