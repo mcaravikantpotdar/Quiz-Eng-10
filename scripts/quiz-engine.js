@@ -2,7 +2,7 @@ class QuizEngine {
     constructor() {
         this.quizData = null;
         this.currentQuestionIndex = 0;
-        this.userAnswers = {};
+        this.userAnswers = {}; 
         this.score = 0;
         this.startTime = null;
         this.timer = null;
@@ -11,64 +11,45 @@ class QuizEngine {
         this.questionTimers = {};
         this.questionTimeSpent = {};
         this.currentQuestionId = null;
+        
+        // --- IDENTITY & MASTER CLOCK ---
+        this.studentName = '';
+        this.schoolName = '';
+        this.totalElapsedSeconds = 0; 
+        this.overallTimer = null;
     }
 
-    setMode(mode) {
-        this.mode = mode;
-    }
+    setMode(mode) { this.mode = mode; }
 
-    loadQuizData(data) {
+    loadQuizData(data, name = '', school = '') {
         const validation = QuizUtils.validateQuizJSON(data);
-        if (!validation.isValid) {
-            throw new Error(`Invalid JSON: ${validation.errors.join(', ')}`);
-        }
+        if (!validation.isValid) throw new Error(`Data Error: ${validation.errors[0]}`);
+        
         this.quizData = data;
+        this.studentName = name;
+        this.schoolName = school;
+        
         this.loadProgress();
     }
 
-    getCurrentQuestion() {
-        return this.quizData.questions[this.currentQuestionIndex];
-    }
-
-    getTotalQuestions() {
-        return this.quizData.questions.length;
-    }
-
-    getMaxScore() {
-        return this.getTotalQuestions() * 4;
-    }
+    getCurrentQuestion() { return this.quizData.questions[this.currentQuestionIndex]; }
+    getTotalQuestions() { return this.quizData ? this.quizData.questions.length : 0; }
+    getMaxScore() { return this.getTotalQuestions() * 4; }
 
     recordAnswer(questionId, selectedOption, attemptNumber, hintUsed = false) {
         const question = this.quizData.questions.find(q => q.question_id === questionId);
         if (!question) return;
-
         const isCorrect = selectedOption === question.correct_option;
         let marks = 0;
-        let finalAttempts = attemptNumber;
-
-        // --- MANAGE SELECTION HISTORY ---
-        // Initialize history if this is the first click for this question
         if (!this.userAnswers[questionId]) {
-            this.userAnswers[questionId] = {
-                history: [], // Stores all clicked options
-                attempts: 0,
-                isCorrect: false,
-                marks: 0,
-                hintUsed: hintUsed
-            };
+            this.userAnswers[questionId] = { history: [], attempts: 0, isCorrect: false, marks: 0, hintUsed: hintUsed };
         }
-
         const currentData = this.userAnswers[questionId];
-        
-        // Add current selection to history if not already there
-        if (!currentData.history.includes(selectedOption)) {
-            currentData.history.push(selectedOption);
-        }
+        if (!currentData.history.includes(selectedOption)) currentData.history.push(selectedOption);
 
         if (this.mode === 'test') {
-            if (isCorrect) marks = hintUsed ? 2 : 4;
-            else marks = 0;
-            finalAttempts = 3; 
+            marks = isCorrect ? (hintUsed ? 2 : 4) : 0;
+            currentData.attempts = 3; 
         } else {
             if (isCorrect) {
                 switch (attemptNumber) {
@@ -76,224 +57,172 @@ class QuizEngine {
                     case 2: marks = hintUsed ? 2 : 3; break;
                     case 3: marks = hintUsed ? 1 : 2; break;
                 }
-            } else if (attemptNumber === 3) {
-                marks = hintUsed ? 0 : 1;
-            } else {
-                marks = 0;
-            }
+            } else if (attemptNumber === 3) marks = hintUsed ? 0 : 1;
+            currentData.attempts = attemptNumber;
         }
-
-        // --- UPDATE PERSISTENT STATE ---
-        currentData.selectedOption = selectedOption; // Last selected
-        currentData.attempts = (this.mode === 'test') ? 3 : attemptNumber;
+        currentData.selectedOption = selectedOption;
         currentData.isCorrect = isCorrect;
         currentData.marks = marks;
         currentData.hintUsed = hintUsed;
         currentData.answeredAt = new Date().toISOString();
+        const finalized = (isCorrect || currentData.attempts >= 3);
+        currentData.isPartial = !finalized;
         
-        // Flag to prevent UI spoilers until finished
-        currentData.isPartial = (this.mode === 'practice' && !isCorrect && attemptNumber < 3);
-
+        if (finalized) this.stopTimer(); 
         this.calculateScore();
         this.saveProgress();
         return { isCorrect, marks };
     }
 
-    recordTimeout(questionId, hintUsed = false) {
-        this.userAnswers[questionId] = {
-            selectedOption: null,
-            history: [],
-            attempts: 3,
-            isCorrect: false,
-            marks: 0,
-            hintUsed: hintUsed,
-            answeredAt: new Date().toISOString(),
-            isTimeout: true,
-            isPartial: false
-        };
-        this.calculateScore();
-        this.saveProgress();
-    }
-
-    calculateScore() {
-        this.score = Object.values(this.userAnswers)
-            .filter(ans => !ans.isPartial)
-            .reduce((total, answer) => total + answer.marks, 0);
-    }
-
-    getQuestionStatus(questionId) {
-        const answer = this.userAnswers[questionId];
-        if (!answer) return 'unanswered';
-        if (answer.isCorrect) return 'correct';
-        if (answer.attempts >= 3 && !answer.isCorrect) return 'wrong';
-        return 'attempted';
-    }
-
-    isQuestionDisabled(questionId) {
-        const answer = this.userAnswers[questionId];
-        return answer && !answer.isPartial && (answer.isCorrect || answer.attempts >= 3);
-    }
-
-    getRemainingAttempts(questionId) {
-        const answer = this.userAnswers[questionId];
-        if (this.mode === 'test' && answer) return 0;
-        return answer ? Math.max(0, 3 - answer.attempts) : 3;
-    }
-
-    getQuestionMarks(questionId) {
-        const answer = this.userAnswers[questionId];
-        if (!answer || answer.isPartial) return null;
-        return {
-            obtained: answer.marks,
-            max: 4,
-            display: `${answer.marks}/4`
-        };
-    }
-
-    isQuestionAnswered(questionId) {
-        const answer = this.userAnswers[questionId];
-        return answer && !answer.isPartial;
-    }
-
-    initializeQuestionTimer(questionId) {
-        if (this.questionTimers[questionId] === undefined) {
-            const defaultTime = (this.mode === 'test') ? 40 : 99;
-            this.questionTimers[questionId] = defaultTime;
-            this.questionTimeSpent[questionId] = 0;
-        }
-        return this.questionTimers[questionId];
-    }
-
-    saveCurrentQuestionTime(questionId, remainingTime) {
-        if (questionId && remainingTime >= 0) {
-            this.questionTimers[questionId] = remainingTime;
-            const maxTime = (this.mode === 'test') ? 40 : 99;
-            const timeSpent = maxTime - remainingTime;
-            if (timeSpent > 0) {
-                this.questionTimeSpent[questionId] = timeSpent;
-            }
-        }
-    }
-
     startTimer(questionId, onTick, onExpire) {
-        this.clearTimer();
+        // Master Clock: Ensures absolute time tracking
+        if (!this.overallTimer) {
+            this.overallTimer = setInterval(() => {
+                this.totalElapsedSeconds++;
+                this.saveProgress();
+            }, 1000);
+        }
+
+        if (this.isQuestionDisabled(questionId)) {
+            onTick(this.questionTimers[questionId] || 0);
+            return;
+        }
+        this.stopTimer(); 
         const startSeconds = this.initializeQuestionTimer(questionId);
         this.currentTimer = startSeconds;
         this.currentQuestionId = questionId;
-
         const endTime = Date.now() + (startSeconds * 1000);
         onTick(this.currentTimer);
-
         this.timer = setInterval(() => {
-            const now = Date.now();
-            const distance = endTime - now;
-            const remainingSeconds = Math.ceil(distance / 1000);
-            
-            this.currentTimer = remainingSeconds;
-            const timerEl = document.getElementById('timer');
-            const pulseThreshold = (this.mode === 'test') ? 10 : 49;
-
-            if (this.currentTimer <= pulseThreshold && timerEl) {
-                timerEl.classList.add('pulse');
+            const distance = endTime - Date.now();
+            this.currentTimer = Math.ceil(distance / 1000);
+            if (this.currentTimer <= (this.mode === 'test' ? 10 : 30)) {
+                document.getElementById('timer')?.classList.add('pulse');
             }
-
-            if (this.currentTimer >= 0) {
-                onTick(this.currentTimer);
-            }
-
+            if (this.currentTimer >= 0) onTick(this.currentTimer);
             if (this.currentTimer <= 0) {
-                this.saveCurrentQuestionTime(questionId, 0);
-                this.clearTimer();
+                this.recordTimeout(questionId, this.userAnswers[questionId]?.hintUsed);
                 onExpire();
             }
         }, 200);
     }
 
-    clearTimer() {
-        if (this.timer) {
-            clearInterval(this.timer);
-            this.timer = null;
+    stopTimer() {
+        if (this.currentQuestionId && this.currentTimer >= 0) {
+            this.questionTimers[this.currentQuestionId] = this.currentTimer;
+            this.questionTimeSpent[this.currentQuestionId] = (this.mode === 'test' ? 40 : 99) - this.currentTimer;
         }
-        const timerEl = document.getElementById('timer');
-        if (timerEl) {
-            timerEl.classList.remove('pulse');
-        }
+        if (this.timer) { clearInterval(this.timer); this.timer = null; }
+        document.getElementById('timer')?.classList.remove('pulse');
     }
 
-    getTimeSpent(questionId) {
-        return this.questionTimeSpent[questionId] || 0;
+    recordTimeout(questionId, hintUsed = false) {
+        this.userAnswers[questionId] = { selectedOption: null, history: [], attempts: 3, isCorrect: false, marks: 0, hintUsed: hintUsed, isTimeout: true, isPartial: false };
+        this.stopTimer();
+        this.calculateScore();
+        this.saveProgress();
     }
 
-    getTotalTimeSpent() {
-        return Object.values(this.questionTimeSpent).reduce((total, time) => total + time, 0);
+    initializeQuestionTimer(qId) {
+        if (this.questionTimers[qId] === undefined) {
+            this.questionTimers[qId] = (this.mode === 'test') ? 40 : 99;
+            this.questionTimeSpent[qId] = 0;
+        }
+        return this.questionTimers[qId];
+    }
+
+    calculateScore() {
+        this.score = Object.values(this.userAnswers).filter(ans => !ans.isPartial).reduce((t, a) => t + a.marks, 0);
+    }
+
+    getQuestionStatus(qId) {
+        const a = this.userAnswers[qId];
+        if (!a) return 'unanswered';
+        if (a.isCorrect) return 'correct';
+        if (a.attempts >= 3) return 'wrong';
+        return 'attempted';
+    }
+
+    isQuestionDisabled(qId) {
+        const a = this.userAnswers[qId];
+        return a && !a.isPartial && (a.isCorrect || a.attempts >= 3);
+    }
+
+    getQuestionMarks(qId) {
+        const a = this.userAnswers[qId];
+        return (!a || a.isPartial) ? null : { obtained: a.marks, display: `${a.marks}/4` };
     }
 
     saveProgress() {
-        const progress = {
-            quizData: this.quizData,
-            currentQuestionIndex: this.currentQuestionIndex,
-            userAnswers: this.userAnswers,
-            score: this.score,
-            startTime: this.startTime,
-            questionTimers: this.questionTimers,
-            questionTimeSpent: this.questionTimeSpent,
-            mode: this.mode
+        const p = { 
+            studentName: this.studentName,
+            schoolName: this.schoolName, 
+            currentQuestionIndex: this.currentQuestionIndex, 
+            userAnswers: this.userAnswers, 
+            score: this.score, 
+            questionTimers: this.questionTimers, 
+            questionTimeSpent: this.questionTimeSpent, 
+            mode: this.mode,
+            totalElapsedSeconds: this.totalElapsedSeconds 
         };
-        localStorage.setItem('quizProgress', JSON.stringify(progress));
+        localStorage.setItem('quizProgress', JSON.stringify(p));
     }
 
     loadProgress() {
-        const saved = localStorage.getItem('quizProgress');
-        if (saved) {
+        const s = localStorage.getItem('quizProgress');
+        if (s) {
             try {
-                const progress = JSON.parse(saved);
-                if (progress.quizData && progress.quizData.metadata) {
-                    this.currentQuestionIndex = progress.currentQuestionIndex || 0;
-                    this.userAnswers = progress.userAnswers || {};
-                    this.score = progress.score || 0;
-                    this.startTime = progress.startTime || new Date().toISOString();
-                    this.questionTimers = progress.questionTimers || {};
-                    this.questionTimeSpent = progress.questionTimeSpent || {};
-                    this.mode = progress.mode || 'practice';
-                    return true;
+                const p = JSON.parse(s);
+                if (p.studentName !== this.studentName || p.schoolName !== this.schoolName) {
+                    this.clearProgress();
+                    return false;
                 }
-            } catch (e) {
-                console.error('Error loading progress:', e);
-            }
+                this.currentQuestionIndex = p.currentQuestionIndex || 0;
+                this.userAnswers = p.userAnswers || {};
+                this.score = p.score || 0;
+                this.questionTimers = p.questionTimers || {};
+                this.questionTimeSpent = p.questionTimeSpent || {};
+                this.mode = p.mode || 'practice';
+                this.totalElapsedSeconds = p.totalElapsedSeconds || 0;
+                return true;
+            } catch (e) { console.error('Save Corrupted'); }
         }
-        this.startTime = new Date().toISOString();
-        this.questionTimers = {};
-        this.questionTimeSpent = {};
         return false;
+    }
+
+    /**
+     * FIX: NUCLEAR RESET
+     * Ensures absolute termination of the clock and clearing of memory.
+     */
+    nuclearReset() {
+        if (this.overallTimer) { clearInterval(this.overallTimer); this.overallTimer = null; }
+        this.totalElapsedSeconds = 0;
+        this.clearProgress();
     }
 
     clearProgress() {
         localStorage.removeItem('quizProgress');
-        this.currentQuestionIndex = 0;
-        this.userAnswers = {};
-        this.score = 0;
-        this.startTime = new Date().toISOString();
-        this.questionTimers = {};
+        if (this.overallTimer) { clearInterval(this.overallTimer); this.overallTimer = null; }
+        this.currentQuestionIndex = 0; 
+        this.userAnswers = {}; 
+        this.score = 0; 
+        this.questionTimers = {}; 
         this.questionTimeSpent = {};
+        this.totalElapsedSeconds = 0;
+        this.stopTimer();
     }
 
     getResults() {
-        const endTime = new Date();
-        const startTime = new Date(this.startTime);
-        const totalTimeTaken = Math.round((endTime - startTime) / 1000);
-
+        const mins = Math.floor(this.totalElapsedSeconds / 60);
+        const secs = this.totalElapsedSeconds % 60;
         return {
-            totalScore: this.score,
+            totalScore: this.score, 
             maxScore: this.getMaxScore(),
-            percentage: Math.round((this.score / this.getMaxScore()) * 100),
-            timeTaken: Math.round(totalTimeTaken / 60),
-            timeTakenSeconds: totalTimeTaken,
-            userAnswers: this.userAnswers,
+            percentage: this.getMaxScore() > 0 ? Math.round((this.score / this.getMaxScore()) * 100) : 0,
+            timeTaken: `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`,
+            userAnswers: this.userAnswers, 
             questions: this.quizData.questions,
-            metadata: this.quizData.metadata,
-            questionTimeSpent: this.questionTimeSpent,
-            totalTimeSpent: this.getTotalTimeSpent(),
-            mode: this.mode
+            unattemptedCount: this.quizData.questions.length - Object.keys(this.userAnswers).filter(id => !this.userAnswers[id].isPartial).length
         };
     }
 }
